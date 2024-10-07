@@ -143,7 +143,7 @@ export default function Home() {
     <>
       <Toaster position="top-center" richColors />
       <header>
-        <Navbar className="custom-navbar">
+        <Navbar className="custom-navbar2">
           <NavbarBrand>
             <img src="./logo.png" alt="logo" height={"70px"} width={"70px"} />
           </NavbarBrand>
