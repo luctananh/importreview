@@ -4,10 +4,10 @@ import { authenticator } from "../server/auth.server.js";
 export const action = async ({ request }) => {
   const auth0Domain = "dev-c841kfnfmsjcrhcr.us.auth0.com";
   const clientId = "UpT0esnQTQjHDg2wBr4MMBQexfZvsFs2";
-  const returnTo = "http://localhost:5173/";
+  const returnTo = "http://importify.io/";
 
   await authenticator.logout(request, {
-    redirectTo: "http://localhost:5173/",
+    redirectTo: "http://importify.io/",
   });
 
   return redirect(

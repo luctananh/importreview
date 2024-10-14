@@ -20,11 +20,11 @@ export const authenticator = new Authenticator(sessionStorage);
 // Cấu hình Auth0 strategy
 const auth0Strategy = new Auth0Strategy(
   {
-    callbackURL: "http://localhost:5173/auth/auth0/callback",
-    clientID: "UpT0esnQTQjHDg2wBr4MMBQexfZvsFs2",
+    callbackURL: "importify.io/auth/auth0/callback",
+    clientID: "azHo43pJgwPz3VCZpTIejLFrtRNNAobc",
     clientSecret:
-      "TRtNxvwmRbwV1dwhl7sK7C-x2QrFYbl36cQQxpQA8kASU6TgjAGEzVe8pI2l5pQV",
-    domain: "dev-c841kfnfmsjcrhcr.us.auth0.com",
+      "N5xLP4CjwGJsysDdp2ZM1q0tjN76WjUy1d56woaxQMK1ue3XQUAk6jPZcvkrx1lF",
+    domain: "dev-j2pa8zu7xx24l8y5.us.auth0.com",
   },
   async ({ accessToken, refreshToken, extraParams, profile }) => {
     // Trả về user profile hoặc tạo user trong database của bạn
