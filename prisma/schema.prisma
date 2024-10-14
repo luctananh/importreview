@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init POSTGRES
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init POSTGRES directUrl = env("DIRECT_URL")
 
 generator client {
   provider = "prisma-client-js"
@@ -10,8 +10,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  url       = env("POSTGRES")
+  
 }
 model User {
   id               String       @id @default(cuid())
