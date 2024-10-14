@@ -20,10 +20,7 @@ export const authenticator = new Authenticator(sessionStorage);
 // Cấu hình Auth0 strategy https://importify.io/auth/auth0/callback
 const auth0Strategy = new Auth0Strategy(
   {
-    callbackURL:
-      process.env.NODE_ENV === "production"
-        ? "https://importify.io/auth/auth0/callback"
-        : "http://localhost:5173/auth/auth0/callback",
+    callbackURL: process.env.AUTH0_CALLBACK_URL,
     clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
     domain: process.env.AUTH0_DOMAIN,
