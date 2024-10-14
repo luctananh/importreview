@@ -9,6 +9,7 @@ import { DeleteIcon } from "../layouts/DeleteIcon.jsx";
 import { EditIcon } from "../layouts/EditIcon .jsx";
 import {
   Modal,
+  Pagination,
   ModalContent,
   ModalHeader,
   ModalBody,
@@ -30,7 +31,7 @@ export const loader = async ({ request }) => {
   const products = await prisma.product.findMany({
     where: { userId },
     include: {
-      reviews: true, // Bao gồm tất cả dữ liệu từ bảng Review
+      reviews: true,
     },
   });
 
@@ -45,11 +46,6 @@ export default function ReviewTable({ products }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <div className="table-container2">
-      {/* <div>
-        <Button size="sm" color="danger" variant="bordered" type="submit">
-          Delete all
-        </Button>
-      </div> */}
       <table>
         <thead>
           <tr>
@@ -129,6 +125,9 @@ export default function ReviewTable({ products }) {
           ))}
         </tbody>
       </table>
+      <div>
+        <Pagination total={10} initialPage={1} />
+      </div>
     </div>
   );
 }

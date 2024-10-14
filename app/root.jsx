@@ -7,14 +7,7 @@ import {
   json,
 } from "@remix-run/react";
 // import { NextUIProvider } from "@nextui-org/react";
-import {
-  NextUIProvider,
-  Button,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 import { Toaster } from "sonner";
 import "./tailwind.css";
 export function loader() {
