@@ -27,7 +27,7 @@ import Review_table from "./review_table.jsx";
 import Setting from "./setting.jsx";
 import { useFetcher } from "@remix-run/react";
 //ss
-import { getSession, commitSession } from "../server/session.server";
+import { getSession, commitSession } from "../server/session.server.js";
 import { action as deleteProductAction } from "./deleteproduct.jsx";
 import { action as deleteReviewAction } from "./delete_review.jsx";
 import { action as downloandReviews } from "./downloand_reviews.jsx";
