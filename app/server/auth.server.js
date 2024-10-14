@@ -9,7 +9,7 @@ const sessionStorage = createCookieSessionStorage({
     sameSite: "lax",
     path: "/",
     httpOnly: true,
-    secrets: ["ZySbrdFDYXG2o/a6XG+XaTQp7fSoKsbGBnTcXkQ7Uzc="],
+    secrets: [process.env.SESSION_SECRET],
     secure: process.env.NODE_ENV === "production",
   },
 });
@@ -17,14 +17,16 @@ const sessionStorage = createCookieSessionStorage({
 // Tạo authenticator
 export const authenticator = new Authenticator(sessionStorage);
 
-// Cấu hình Auth0 strategy
+// Cấu hình Auth0 strategy https://importify.io/auth/auth0/callback
 const auth0Strategy = new Auth0Strategy(
   {
-    callbackURL: "https://importify.io/auth/auth0/callback",
-    clientID: "azHo43pJgwPz3VCZpTIejLFrtRNNAobc",
-    clientSecret:
-      "N5xLP4CjwGJsysDdp2ZM1q0tjN76WjUy1d56woaxQMK1ue3XQUAk6jPZcvkrx1lF",
-    domain: "dev-j2pa8zu7xx24l8y5.us.auth0.com",
+    callbackURL:
+      process.env.NODE_ENV === "production"
+        ? "https://importify.io/auth/auth0/callback"
+        : "http://localhost:5173/auth/auth0/callback",
+    clientID: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    domain: process.env.AUTH0_DOMAIN,
   },
   async ({ accessToken, refreshToken, extraParams, profile }) => {
     // Trả về user profile hoặc tạo user trong database của bạn

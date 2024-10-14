@@ -9,8 +9,8 @@ export const loader = ({ request }) => {
 
 export const action = ({ request }) => {
   return authenticator.authenticate("auth0", request, {
-    successRedirect: "https://importify.io/home",
-    failureRedirect: "https://importify.io/loi",
+    successRedirect: "http://localhost:5173/home",
+    failureRedirect: "http://localhost:5173/loi",
   });
 };
 
