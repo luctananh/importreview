@@ -3,7 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
-import "../styles/home.css";
+import "../styles/Home.css";
 import {
   Button,
   Navbar,
