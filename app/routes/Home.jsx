@@ -113,9 +113,6 @@ export default function Home() {
   const [isVertical, setIsVertical] = useState(true);
   const [searchParams] = useSearchParams();
 
-  if (!user) {
-    return <p>Loading...</p>; // Hoặc thông báo lỗi nếu không có người dùng
-  }
   const initialTab = searchParams.get("tab") || "Products"; // "Products" là tab mặc định
   // "photos" là tab mặc định
   const [activeTab, setActiveTab] = useState(initialTab);
@@ -123,7 +120,7 @@ export default function Home() {
   if (!user) {
     return <p>Loading...</p>; // Hoặc thông báo lỗi nếu không có người dùng
   }
-
+  console.log(user);
   // Hàm thay đổi tab
   const handleTabChange = (key) => {
     setActiveTab(key);

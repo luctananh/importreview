@@ -2,8 +2,8 @@ import { authenticator } from "../server/auth.server.js";
 
 export const loader = ({ request }) => {
   return authenticator.authenticate("auth0", request, {
-    successRedirect: "http://importify.io/home",
-    failureRedirect: "http://importify.io/loi",
+    successRedirect: "https://importify.io/home",
+    failureRedirect: "",
   });
 };
 
