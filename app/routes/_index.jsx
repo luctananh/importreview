@@ -17,8 +17,8 @@ import {
 // import { action as LoginSite } from "./auth.auth0";
 export const meta = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "importify" },
+    { name: "import review aliexpress", content: "crawl review aliexpress" },
   ];
 };
 
