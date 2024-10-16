@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { useLoaderData, Form, useFetcher, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import { getSession } from "../server/session.server";
 import "../styles/product.css";
-import { useEffect } from "react";
 import {
   Modal,
   ModalContent,
@@ -15,6 +14,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { Toaster, toast } from "sonner";
+
 // Lấy danh sách sản phẩm từ cơ sở dữ liệu cho người dùng hiện tại
 export const loader = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -49,9 +49,47 @@ export default function ProductTable() {
   const [productURL, setProductURL] = useState("");
   const [searchTerm, setSearchTerm] = useState(""); // Tạo state cho chuỗi tìm kiếm
   const [filteredProducts, setFilteredProducts] = useState(products);
+
+  /* add websocket*/
+  const [ws, setWs] = useState(null);
+
+  useEffect(() => {
+    // Establish WebSocket connection
+    const socket = new WebSocket("ws://localhost:3000");
+
+    socket.onopen = () => {
+      console.log("Connected to WebSocket server");
+    };
+
+    socket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === "new_review") {
+        // Update the review count for the specific product
+        setFilteredProducts((prevProducts) =>
+          prevProducts.map((product) =>
+            product.id === message.productId
+              ? { ...product, reviewCount: product.reviewCount + 1 }
+              : product
+          )
+        );
+      }
+    };
+
+    socket.onclose = () => {
+      console.log("Disconnected from WebSocket server");
+    };
+
+    setWs(socket);
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+  /* End*/
   const handleURLChange = (e) => {
     setProductURL(e.target.value);
   };
+
   // Cập nhật danh sách sản phẩm đã lọc khi searchTerm thay đổi
   useEffect(() => {
     setFilteredProducts(
@@ -60,7 +98,9 @@ export default function ProductTable() {
       )
     );
   }, [searchTerm, products]);
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   //delete_product
   // Hàm kiểm tra và xóa sản phẩm
   const handleDelete = (product) => {
@@ -76,6 +116,7 @@ export default function ProductTable() {
       );
     }
   };
+
   return (
     <>
       <div className="table-container">
