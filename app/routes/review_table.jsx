@@ -152,9 +152,10 @@ export default function ReviewTable() {
       toast.error("An error occurred while deleting the review.");
     } finally {
       setIsLoading(false); // Kết thúc trạng thái loading
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 500);
+      window.location.reload();
       onClose();
     }
   };
@@ -246,9 +247,10 @@ export default function ReviewTable() {
       const result = await response.json();
       toast.error(`Error: ${result.error}`);
     }
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 500);
+    window.location.reload();
     setIsLoading(false);
   };
   function handleUpload(url, error) {
