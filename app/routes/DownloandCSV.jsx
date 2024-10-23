@@ -70,7 +70,7 @@ export default function DownloadCSV() {
                 radius="sm"
                 variant="bordered"
                 as={Link}
-                to="/Home"
+                to="/products"
               >
                 Close
               </Button>
