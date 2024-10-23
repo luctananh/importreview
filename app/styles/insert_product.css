@@ -1,15 +1,8 @@
 /* Styles cho overlay */
-.modal-overlay {
-  position: fixed; /* Đặt overlay cố định */
-  top: 0; /* Ở trên cùng */
-  left: 0; /* Ở bên trái */
-  right: 0; /* Ở bên phải */
-  bottom: 0; /* Ở dưới cùng */
-  background-color: rgba(0, 0, 0, 0.7); /* Màu nền đen mờ */
-  display: flex; /* Sử dụng flexbox để căn giữa */
-  align-items: center; /* Căn giữa theo chiều dọc */
-  justify-content: center; /* Căn giữa theo chiều ngang */
-  z-index: 999; /* Đảm bảo overlay nằm trên các phần tử khác */
+.modal_container {
+  margin: 0 auto;
+  margin-top: 70px;
+  width: 85%;
 }
 
 /* Styles cho form */
@@ -17,8 +10,6 @@
   background-color: white; /* Màu nền cho form */
   border-radius: 8px; /* Bo góc cho form */
   padding: 20px; /* Padding bên trong */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng cho form */
-  width: 60%; /* Chiều rộng của form */
 }
 
 /* Styles cho các input và button */
@@ -29,4 +20,19 @@
   border: 1px solid #ccc; /* Đường viền */
   border-radius: 10px; /* Bo góc cho input */
   background-color: #fff;
+}
+label {
+  color: gray;
+}
+.card_title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card_title h1 {
+  text-align: start;
+}
+.card_title img {
+  margin-bottom: 5px;
+  width: 30px;
 }

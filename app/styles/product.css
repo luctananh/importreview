@@ -69,3 +69,15 @@ img {
   border: 1px solid #ddd;
   background-color: white;
 }
+.delete_icon img {
+  height: 20px;
+}
+.more_svg {
+  margin-right: 40px;
+  display: flex;
+  justify-content: flex-end;
+  height: 20px;
+}
+.more_svg img {
+  height: 20px;
+}

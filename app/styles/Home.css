@@ -32,3 +32,40 @@
   border-color: rgb(116, 116, 236);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
 }
+.card_navar {
+  width: 20%;
+}
+.card_slide {
+  display: flex;
+  flex-direction: row;
+}
+.review_table .card_navar {
+  width: 50%;
+}
+.product_table {
+  flex-grow: 1; /* Allow this section to take up the remaining space */
+  padding: 70px 10px;
+}
+h1 {
+  color: gray; /* Màu chữ */
+  font-weight: bold; /* Làm chữ đậm */
+  font-size: 20px; /* Kích thước chữ lớn */
+  margin-bottom: 10px; /* Khoảng cách dưới */
+  text-transform: uppercase; /* Chuyển tất cả chữ thành in hoa */
+  letter-spacing: 2px; /* Khoảng cách giữa các chữ */
+  line-height: 1.2; /* Khoảng cách giữa các dòng */
+  font-family: "Arial", sans-serif; /* Đặt font chữ */
+}
+.card_text2 {
+  display: flex;
+
+  justify-content: space-between;
+  padding: 10px 0px 10px 20px;
+}
+.add_button img {
+  height: 15px;
+}
+footer {
+  margin-left: 265px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}

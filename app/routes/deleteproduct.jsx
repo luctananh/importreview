@@ -12,7 +12,7 @@ export const action = async ({ formData }) => {
     await prisma.product.delete({
       where: { id: productId },
     });
-    return redirect("/home"); // Điều hướng lại về trang Home sau khi xóa
+    return redirect("/products"); // Điều hướng lại về trang Home sau khi xóa
   } catch (error) {
     console.error("Error deleting product:", error);
     return new Response("Error deleting product", { status: 500 });
