@@ -9,7 +9,7 @@ import { DeleteIcon } from "../layouts/DeleteIcon.jsx";
 import { EditIcon } from "../layouts/EditIcon .jsx";
 import { authenticator } from "../server/auth.server.js";
 import { useFetcher } from "@remix-run/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UploadWidget from "../layouts/uploadimage";
 import { redirect } from "@remix-run/node";
@@ -110,6 +110,7 @@ export default function ReviewTable() {
   const [imageUrl, setImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
+  const navigation = useNavigation();
   const fetcher = useFetcher();
   // Hàm để mở modal và lưu trữ reviewId
   const onOpen = (reviewId) => {
@@ -321,6 +322,7 @@ export default function ReviewTable() {
 
       <div className="card_slide">
         <div className="card_navar">
+          {navigation.state === "loading" && <div>Loading...</div>}
           <nav className="side-nav">
             <ul>
               <li>

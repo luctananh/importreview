@@ -2,7 +2,7 @@ import { authenticator } from "../server/auth.server.js";
 import { useLoaderData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigation } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Home.css";
 import "../styles/Navigation.css";
@@ -112,6 +112,7 @@ export default function Home() {
   const { user, products } = useLoaderData();
   const [isVertical, setIsVertical] = useState(true);
   const [searchParams] = useSearchParams();
+  const navigation = useNavigation();
 
   const initialTab = searchParams.get("tab") || "Products"; // "Products" là tab mặc định
   // "photos" là tab mặc định
@@ -194,6 +195,7 @@ export default function Home() {
 
       <div className="card_slide">
         <div className="card_navar">
+          {navigation.state === "loading" && <div>Loading...</div>}
           <nav className="side-nav">
             <ul>
               <li>
