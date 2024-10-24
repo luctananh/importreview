@@ -15,6 +15,7 @@ import {
   DropdownMenu,
   Avatar,
 } from "@nextui-org/react";
+import { Link } from "@remix-run/react";
 import "../styles/setting.css";
 import "../styles/Home.css";
 import "../styles/Navigation.css";
