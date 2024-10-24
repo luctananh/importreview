@@ -20,13 +20,13 @@ import { Link } from "@remix-run/react";
 import "../styles/setting.css";
 import "../styles/Home.css";
 import "../styles/Navigation.css";
-export async function loader({ request }) {
+export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
     return json({ error: "User not authenticated" }, { status: 401 });
   }
-  return json(user);
-}
+  return json({ user });
+};
 export default function Setting() {
   const { user } = useLoaderData();
   const fetcher = useFetcher();
