@@ -3,6 +3,18 @@ import { Reviews } from "../server/data.js";
 import { authenticator } from "../server/auth.server.js";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { json, NavLink, useNavigation } from "react-router-dom";
+import {
+  Button,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
+} from "@nextui-org/react";
 import "../styles/setting.css";
 import "../styles/Home.css";
 import "../styles/Navigation.css";
