@@ -112,10 +112,10 @@ export default function Setting() {
             </ul>
           </nav>
         </div>
-        <div className="card_text">
-          <h1>Setting</h1>
-        </div>
         <div className="setting_body">
+          <div className="text-setting">
+            <h1>Setting</h1>
+          </div>
           <div className="setting_card">
             <span>Review quantity per import</span>
             <Select

@@ -4,10 +4,14 @@
   gap: 15px;
   margin-left: 40px;
   width: 75%;
+  margin-top: 85px;
 }
 
 .setting_card {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.text_setting {
+  margin-bottom: -15px;
 }
