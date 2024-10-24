@@ -22,9 +22,7 @@ import { Link } from "@remix-run/react";
 import { Tabs, Tab, Card, CardBody, Switch } from "@nextui-org/react";
 import { Toaster, toast } from "sonner";
 import Product_table from "./Product_table_vs2.jsx";
-import Review_table from "./review_table.jsx";
 
-import Setting from "./setting.jsx";
 import { useFetcher } from "@remix-run/react";
 //ss
 import { getSession, commitSession } from "../server/session.server.js";
