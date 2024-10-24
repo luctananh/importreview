@@ -2,7 +2,8 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { Reviews } from "../server/data.js";
 import { authenticator } from "../server/auth.server.js";
 import { useFetcher, useLoaderData } from "@remix-run/react";
-import { json, NavLink, useNavigation } from "react-router-dom";
+import { NavLink, useNavigation } from "react-router-dom";
+import { json } from "@remix-run/node";
 import {
   Button,
   Navbar,
