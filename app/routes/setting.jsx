@@ -30,17 +30,18 @@ export const loader = async ({ request }) => {
 export default function Setting() {
   const { user } = useLoaderData();
   const fetcher = useFetcher();
+  const navigation = useNavigation();
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
   return (
     <>
       <header>
+        {navigation.state === "loading" && <div>Loading...</div>}
         <Navbar className="custom-navbar2">
           <NavbarBrand>
             <img src="./logo.png" alt="logo" height={"70px"} width={"70px"} />
           </NavbarBrand>
-
           <NavbarContent className="hidden sm:flex gap-4" justify="center">
             <NavbarItem>
               <Link color="foreground" href="#">
@@ -91,7 +92,6 @@ export default function Setting() {
 
       <div className="card_slide">
         <div className="card_navar">
-          {navigation.state === "loading" && <div>Loading...</div>}
           <nav className="side-nav">
             <ul>
               <li>
@@ -111,6 +111,9 @@ export default function Setting() {
               </li>
             </ul>
           </nav>
+        </div>
+        <div className="card_text">
+          <h1>Setting</h1>
         </div>
         <div className="setting_body">
           <div className="setting_card">

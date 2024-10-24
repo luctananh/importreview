@@ -267,6 +267,7 @@ export default function ReviewTable() {
     <>
       <Toaster position="top-center" richColors />
       <header>
+        {navigation.state === "loading" && <div>Loading...</div>}
         <Navbar className="custom-navbar2">
           <NavbarBrand>
             <img src="./logo.png" alt="logo" height={"70px"} width={"70px"} />
@@ -322,7 +323,6 @@ export default function ReviewTable() {
 
       <div className="card_slide">
         <div className="card_navar">
-          {navigation.state === "loading" && <div>Loading...</div>}
           <nav className="side-nav">
             <ul>
               <li>
