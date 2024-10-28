@@ -18,7 +18,7 @@ import {
 } from "@nextui-org/react";
 import { Link } from "@remix-run/react";
 import "../styles/setting.css";
-import "../styles/Home.css";
+import "../styles/home.css";
 import "../styles/Navigation.css";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);

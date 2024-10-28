@@ -12,7 +12,7 @@ import { useFetcher } from "@remix-run/react";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UploadWidget from "../layouts/uploadimage";
-import "../styles/Home.css";
+import "../styles/home.css";
 import "../styles/Navigation.css";
 import {
   Modal,
