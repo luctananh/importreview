@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+.table-container {
+  overflow-y: auto; /* Kích hoạt cuộn dọc khi nội dung vượt quá chiều cao */
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-family: "Arial", sans-serif; /* Font chữ cho toàn bộ bảng */
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-family: "Open Sans", sans-serif;
+}
+
+thead th {
+  position: sticky;
+  top: 0; /* Giữ hàng tiêu đề ở đầu khi cuộn */
+  background-color: rgb(220, 220, 220);
+  color: #000;
+  z-index: 2; /* Đảm bảo tiêu đề luôn hiển thị trên các dòng */
+}
+
+/* Style cho các hàng */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #ddd;
+}
+img {
+  height: 50px;
+  width: 50px;
+}
+.card_button {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.form-container {
+  margin-top: 20px;
+}
+
+.form-container div {
+  margin-bottom: 10px;
+}
+
+.form-container label {
+  display: block;
+  font-weight: bold;
+}
+
+.Modalbody input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+.delete_icon img {
+  height: 20px;
+}
+.more_svg {
+  margin-right: 40px;
+  display: flex;
+  justify-content: flex-end;
+  height: 20px;
+}
+.more_svg img {
+  height: 20px;
+}

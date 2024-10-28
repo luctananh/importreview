@@ -1,0 +1,48 @@
+/* styles/Navigation.css */
+.custom-navbar2 {
+  position: fixed;
+}
+.side-nav {
+  position: fixed;
+  top: 70px; /* Bắt đầu ngay dưới thanh navigation ngang có chiều cao 70px */
+  left: 0;
+  border-radius: 10px; /* Bo góc navbar */
+  height: calc(
+    100vh - 70px
+  ); /* Chiều cao của thanh nav bên trái là phần còn lại của màn hình */
+  width: 20%;
+  background-color: #fff;
+  padding-top: 20px;
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
+  /* Đảm bảo nó ở dưới thanh ngang (nếu cần) */
+}
+
+.side-nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-nav ul li {
+  padding: 8px 16px;
+}
+
+.side-nav ul li a {
+  color: gray;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.side-nav ul li a:hover {
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.side-nav ul li a.active {
+  color: gray; /* Màu chữ khi "active" */
+  font-weight: bold; /* Chữ đậm khi active */
+  background-color: #f0f0f0; /* Thêm nền nếu muốn */
+  border-left: 4px solid gray; /* Đường viền bên trái khi active */
+  border-radius: 5px;
+}

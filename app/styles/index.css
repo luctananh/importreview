@@ -1,0 +1,17 @@
+.background {
+  /* background-image: url("./banner.jpg"); */
+  background-size: cover; /* Đảm bảo ảnh phủ kín toàn bộ màn hình */
+  background-position: center; /* Căn ảnh vào giữa */
+  background-repeat: no-repeat; /* Không lặp lại ảnh */
+  height: 100vh; /* Đảm bảo nền bao phủ toàn bộ chiều cao của màn hình */
+  height: 100vh;
+  margin: 0;
+  padding-top: 5px;
+}
+.custom-navbar {
+  background-color: #fff; /* Đổi màu nền */
+  border-radius: 10px; /* Bo góc navbar */
+  /* border: solid 2px; */
+  border-color: rgb(116, 116, 236);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+}

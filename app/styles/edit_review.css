@@ -1,0 +1,44 @@
+/* Styles cho overlay */
+.import_review {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+}
+.form-container2 .nameproduct {
+  display: none;
+}
+
+/* Styles cho form */
+.form-container2 {
+  background-color: white; /* Màu nền cho form */
+  border-radius: 8px; /* Bo góc cho form */
+  padding: 20px; /* Padding bên trong */
+  width: 85%; /* Chiều rộng của form */
+}
+
+/* Styles cho các input và button */
+
+.form-container2 input {
+  width: 100%; /* Đặt chiều rộng cho input */
+  padding: 10px; /* Padding bên trong */
+  margin: 10px 0; /* Margin giữa các input */
+  border: 1px solid #ccc; /* Đường viền */
+  border-radius: 10px; /* Bo góc cho input */
+  background-color: #fff;
+}
+.form-container2 textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+.form-container2 h1 {
+  text-align: start;
+}
+
+.form-container2 img {
+  margin-bottom: 5px;
+  width: 30px;
+}

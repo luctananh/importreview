@@ -1,0 +1,54 @@
+/* Styles cho overlay */
+.modal_container {
+  margin: 0 auto;
+  margin-top: 70px;
+  width: 85%;
+}
+
+/* Styles cho form */
+.form-container {
+  background-color: white; /* Màu nền cho form */
+  border-radius: 8px; /* Bo góc cho form */
+  padding: 20px; /* Padding bên trong */
+}
+
+/* Styles cho các input và button */
+.form-container input {
+  width: 100%; /* Đặt chiều rộng cho input */
+  padding: 10px; /* Padding bên trong */
+  margin: 10px 0; /* Margin giữa các input */
+  border: 1px solid #ccc; /* Đường viền */
+  border-radius: 10px; /* Bo góc cho input */
+  background-color: #fff;
+}
+label {
+  color: gray;
+}
+.card_title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card_title h1 {
+  text-align: start;
+}
+.card_title img {
+  margin-bottom: 5px;
+  width: 30px;
+}
+.button_prd {
+  padding-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.card_image {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.button_uploand {
+  width: 20px;
+}
+.button_uploand img {
+  width: 20px;
+}

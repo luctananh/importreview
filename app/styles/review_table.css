@@ -1,0 +1,250 @@
+.table-review {
+  width: 100%; /* Chiều rộng của container chiếm toàn bộ chiều rộng */
+  max-width: 1200px;
+  margin: 0 auto; /* Căn giữa bảng */
+  overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+  font-family: "Arial", sans-serif; /* Font chữ cho toàn bộ bảng */
+  font-size: 14px; /* Kích thước chữ cho toàn bộ bảng */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+table {
+  width: 100%; /* Bảng chiếm toàn bộ chiều rộng của container */
+  border-collapse: collapse; /* Xóa khoảng cách giữa các ô */
+}
+
+th,
+td {
+  padding: 12px; /* Khoảng cách bên trong ô */
+  text-align: left; /* Căn trái nội dung */
+  border-bottom: 1px solid #ddd;
+  text-align: center; /* Đường kẻ dưới các ô */
+}
+
+th {
+  background-color: #f2f2f2; /* Màu nền cho tiêu đề bảng */
+  position: sticky; /* Giữ tiêu đề cố định khi cuộn */
+  top: 0; /* Vị trí giữ cố định ở trên cùng */
+  z-index: 1;
+  background-color: #f2f2f2; /* Màu nền cho tiêu đề bảng */
+}
+
+/* Đặt kích thước cố định cho cột Review Content */
+td:nth-child(4),
+th:nth-child(4) {
+  width: 250px; /* Chiều rộng cố định cho cột Review Content */
+  max-height: 100px; /* Chiều cao tối đa */
+  overflow: hidden; /* Ẩn phần tràn */
+  white-space: normal; /* Cho phép xuống dòng */
+  word-wrap: break-word; /* Ngắt từ nếu quá dài */
+  padding: 10px; /* Thêm khoảng cách padding */
+}
+
+/* Nội dung trong cột, dùng block để kiểm soát chiều cao và cuộn */
+td:nth-child(4) {
+  max-height: 100px; /* Chiều cao tối đa */
+  overflow-y: auto; /* Cuộn dọc nếu nội dung dài */ /* Đảm bảo nội dung được gói trong block */
+  line-height: 1.2; /* Khoảng cách giữa các dòng */
+}
+td:nth-child(2),
+th:nth-child(2) {
+  width: 100px; /* Chiều rộng cố định cho cột User Name */
+  max-height: 50px; /* Chiều cao tối đa cho ô nếu cần */
+  overflow: hidden; /* Ẩn nội dung tràn */
+  text-overflow: ellipsis; /* Hiển thị dấu "..." khi nội dung dài */
+  white-space: nowrap; /* Không cho phép xuống dòng trong cột này */
+}
+td:nth-child(3),
+th:nth-child(3) {
+  width: 100px; /* Chiều rộng cố định cho cột User Name */
+  max-height: 50px; /* Chiều cao tối đa cho ô nếu cần */
+  overflow: hidden; /* Ẩn nội dung tràn */
+  text-overflow: ellipsis; /* Hiển thị dấu "..." khi nội dung dài */
+  white-space: nowrap; /* Không cho phép xuống dòng trong cột này */
+}
+td:nth-child(1),
+th:nth-child(1) {
+  width: 100px; /* Chiều rộng cố định cho cột User Name */
+  max-height: 50px; /* Chiều cao tối đa cho ô nếu cần */
+  overflow: hidden; /* Ẩn nội dung tràn */
+  text-overflow: ellipsis; /* Hiển thị dấu "..." khi nội dung dài */
+  white-space: nowrap; /* Không cho phép xuống dòng trong cột này */
+}
+td:nth-child(5),
+th:nth-child(5) {
+  text-align: center; /* Căn giữa nội dung */
+  white-space: nowrap; /* Ngăn chặn xuống dòng */
+}
+
+td:nth-child(6),
+th:nth-child(6) {
+  width: 40px; /* Chiều rộng cố định cho cột User Name */
+  max-height: 50px; /* Chiều cao tối đa cho ô nếu cần */
+  overflow: hidden; /* Ẩn nội dung tràn */
+  text-overflow: ellipsis; /* Hiển thị dấu "..." khi nội dung dài */
+  white-space: nowrap; /* Không cho phép xuống dòng trong cột này */
+}
+td:nth-child(7),
+th:nth-child(7) {
+  width: 40px; /* Chiều rộng cố định cho cột User Name */
+  max-height: 50px; /* Chiều cao tối đa cho ô nếu cần */
+  overflow: hidden; /* Ẩn nội dung tràn */
+  text-overflow: ellipsis; /* Hiển thị dấu "..." khi nội dung dài */
+  white-space: nowrap; /* Không cho phép xuống dòng trong cột này */
+}
+img {
+  max-width: 50px; /* Chiều rộng tối đa của hình ảnh */
+  height: auto; /* Chiều cao tự động để giữ tỉ lệ */
+}
+.nameproduct {
+  display: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Đảm bảo nó sẽ nằm trên các thành phần khác */
+}
+
+/* CSS cho các nút ba chấm */
+.ellipsis-button {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.ellipsis-button:hover {
+  font-size: 0; /* Ẩn ba chấm để hiển thị icon >> hoặc << */
+}
+
+.ellipsis-button:hover::before {
+  font-size: 0; /* Ẩn dấu ba chấm khi di chuột */
+}
+
+/* Hiệu ứng cho dấu ba chấm ở phía trước (backward) */
+.ellipsis-backward:hover::after {
+  content: "<<"; /* Thay đổi thành << khi di chuột vào nút backward */
+  font-size: 16px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Hiệu ứng cho dấu ba chấm ở phía sau (forward) */
+.ellipsis-forward:hover::after {
+  content: ">>"; /* Thay đổi thành >> khi di chuột vào nút forward */
+  font-size: 16px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.delete_icon,
+.edit_icon {
+  height: 20px;
+}
+.back_icon {
+  width: 30px;
+}
+.edit_from {
+  display: flex;
+  flex-direction: column;
+}
+.card_text {
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card_text h1 {
+  text-align: start;
+}
+/* Định nghĩa kiểu cho các thẻ input */
+input[type="text"],
+input[type="number"],
+textarea {
+  background-color: #fff;
+  width: 100%; /* Để chiếm toàn bộ chiều rộng của phần chứa */
+  padding: 10px; /* Khoảng cách bên trong */
+  border: 1px solid #ccc; /* Viền xung quanh */
+  border-radius: 4px; /* Bo tròn góc */
+  font-size: 16px; /* Kích thước font chữ */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  transition: border-color 0.3s; /* Hiệu ứng chuyển màu viền khi focus */
+}
+
+/* Hiệu ứng hover */
+input[type="text"]:hover,
+input[type="number"]:hover,
+textarea:hover {
+  border-color: #888; /* Thay đổi màu viền khi hover */
+}
+
+/* Hiệu ứng focus */
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  border-color: #007bff; /* Thay đổi màu viền khi focus */
+  outline: none; /* Ẩn outline mặc định */
+}
+
+/* Định nghĩa kiểu cho thẻ label */
+label {
+  margin-bottom: 5px; /* Khoảng cách phía dưới label */
+  font-weight: bold; /* In đậm chữ label */
+  display: block; /* Làm cho label chiếm một dòng */
+}
+
+/* Định nghĩa kiểu cho thẻ textarea */
+textarea {
+  resize: vertical; /* Cho phép thay đổi kích thước chiều cao */
+  min-height: 100px; /* Chiều cao tối thiểu cho textarea */
+}
+.total-reviews {
+  font-size: 12px; /* Kích thước chữ lớn */
+  font-weight: bold; /* Chữ đậm */
+  color: #333; /* Màu chữ tối */
+  margin: 0px 0; /* Khoảng cách phía trên và dưới */
+  margin-bottom: 10px;
+  text-align: center; /* Căn giữa nội dung */
+  padding: 10px; /* Khoảng cách bên trong */
+  border: 2px solid gray; /* Viền xung quanh */
+  border-radius: 5px; /* Bo góc cho viền */
+  background-color: #f9f9f9; /* Màu nền nhẹ nhàng */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+.no-reviews {
+  text-align: center; /* Canh giữa văn bản */
+  font-size: 18px; /* Kích thước chữ lớn hơn một chút */
+  color: #555; /* Màu chữ xám nhạt */
+  margin: 20px 0; /* Khoảng cách phía trên và dưới */
+  font-weight: bold; /* Chữ đậm để nổi bật hơn */
+  padding: 15px; /* Đệm xung quanh văn bản */
+  border: 1px dashed #ccc; /* Đường viền đứt nét */
+  border-radius: 8px; /* Bo góc cho đường viền */
+  background-color: #f9f9f9; /* Màu nền nhạt */
+}
+.star-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star {
+  color: #484646; /* Màu sao mặc định */
+  font-size: 16px; /* Kích thước sao */
+  margin-right: 2px; /* Khoảng cách giữa các sao */
+}
+
+.star.filled {
+  color: #f39c12; /* Màu vàng cho sao khi được đánh giá */
+}
