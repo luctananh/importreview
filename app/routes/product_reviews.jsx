@@ -60,8 +60,16 @@ export const loader = async ({ request }) => {
     throw new Response("Product ID is required", { status: 400 });
   }
 
+  // const reviews = await prisma.review.findMany({
+  //   where: { productId },
+  // });
+  const order = url.searchParams.get("order") === "asc" ? "asc" : "desc";
+
   const reviews = await prisma.review.findMany({
     where: { productId },
+    orderBy: {
+      userName: order, // Sắp xếp theo userName
+    },
   });
   const allReviews = getAllReviews(reviews);
   const totalReviewCount = reviews.length;
@@ -337,7 +345,38 @@ export default function ReviewTable() {
                   <th>Review Content</th>
                   <th>Rating</th>
                   <th></th>
-                  <th></th>
+                  <th>
+                    {" "}
+                    <div className="filter_review">
+                      <Dropdown>
+                        <DropdownTrigger>
+                          <Button variant="bordered">
+                            <img
+                              className="edit_icon"
+                              src="/filter.svg"
+                              alt="filter"
+                            />
+                          </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu aria-label="Static Actions">
+                          <DropdownItem key="new">
+                            <div className="btn_sort">
+                              <button onClick={() => handleSort("asc")}>
+                                Sort A-Z
+                              </button>
+                            </div>
+                          </DropdownItem>
+                          <DropdownItem key="copy">
+                            <div className="btn_sort">
+                              <button onClick={() => handleSort("desc")}>
+                                Sort Z-A
+                              </button>
+                            </div>
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -592,7 +631,7 @@ export default function ReviewTable() {
         )}
       </div>
 
-      <section className="bg-white">
+      {/* <section className="bg-white">
         <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
           <nav className="flex flex-wrap justify-center -mx-5 -my-2">
             <div className="px-5 py-2">
@@ -721,7 +760,7 @@ export default function ReviewTable() {
             © 2023 Import Review Aliexpress.
           </p>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

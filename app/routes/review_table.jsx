@@ -52,13 +52,25 @@ export const loader = async ({ request }) => {
     return redirect("/login");
   }
 
+  // const products = await prisma.product.findMany({
+  //   where: { userId },
+  //   include: {
+  //     reviews: true,
+  //   },
+  // });
+  const url = new URL(request.url);
+  const order = url.searchParams.get("order") === "asc" ? "asc" : "desc";
+
   const products = await prisma.product.findMany({
     where: { userId },
     include: {
-      reviews: true,
+      reviews: {
+        orderBy: {
+          userName: order, // Sắp xếp theo 'rating' giảm dần; đổi thành 'asc' để tăng dần
+        },
+      },
     },
   });
-
   if (products.length === 0) {
     return redirect("/insert-product");
   }
@@ -352,7 +364,34 @@ export default function ReviewTable() {
                   <th>Review Content</th>
                   <th>Rating</th>
                   <th></th>
-                  <th></th>
+                  <th>
+                    {" "}
+                    <div className="filter_review">
+                      <Dropdown>
+                        <DropdownTrigger>
+                          <Button variant="bordered">
+                            <img
+                              className="filter_icon"
+                              src="/filter.svg"
+                              alt="filter"
+                            />
+                          </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu aria-label="Static Actions">
+                          <DropdownItem key="new">
+                            <div className="btn_sort">
+                              <a href="?order=asc">Sort A-Z</a>
+                            </div>
+                          </DropdownItem>
+                          <DropdownItem key="copy">
+                            <div className="btn_sort">
+                              <a href="?order=desc">Sort Z-A</a>
+                            </div>
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>

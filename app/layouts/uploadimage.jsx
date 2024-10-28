@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useEnv } from "../server/use-env.js";
 import { Button } from "@nextui-org/react";
+import "../styles/insert_product.css";
 
 let cloudinary;
 
@@ -65,8 +66,8 @@ function UploadWidget({ onUpload }) {
   }
 
   return (
-    <Button size="sm" onClick={open} color="success">
-      Up your photos
+    <Button size="sm" onClick={open} className="button_uploand">
+      <img src="/uploadd.svg" alt="uploand_image" />
     </Button>
   );
 }

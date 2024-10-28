@@ -248,3 +248,12 @@ textarea {
 .star.filled {
   color: #f39c12; /* Màu vàng cho sao khi được đánh giá */
 }
+
+.btn_sort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filter_icon {
+  width: 20px;
+}
