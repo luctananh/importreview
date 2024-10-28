@@ -23,7 +23,7 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
-import "../styles/Home.css";
+import "../styles/home.css";
 import "../styles/Navigation.css";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
