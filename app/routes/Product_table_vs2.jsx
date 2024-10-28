@@ -222,7 +222,7 @@ export default function ProductTable() {
                 onClick={() =>
                   (window.location.href = `/product_reviews/?pI=${
                     product.id
-                  }&na=${encodeURIComponent(product.name)}`)
+                  }&na=${encodeURIComponent(product.name)}&order=asc`)
                 }
               >
                 <td>
