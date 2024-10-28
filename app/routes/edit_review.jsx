@@ -2,7 +2,7 @@ import { useSearchParams } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import "../styles/edit_review.css";
-import "../styles/Home.css";
+import "../styles/home.css";
 import "../styles/Navigation.css";
 import { useLoaderData, Form } from "@remix-run/react";
 import { authenticator } from "../server/auth.server.js";

@@ -4,7 +4,7 @@ import { json, redirect } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import "../styles/Home.css";
+import "../styles/home.css";
 import "../styles/Navigation.css";
 import {
   Button,

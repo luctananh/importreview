@@ -23,7 +23,7 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
-import "../styles/Home.css";
+import "../styles/home.css";
 import "../styles/Navigation.css";
 import { div } from "framer-motion/client";
 export const loader = async ({ request }) => {
