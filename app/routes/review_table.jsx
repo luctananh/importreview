@@ -9,11 +9,10 @@ import { DeleteIcon } from "../layouts/DeleteIcon.jsx";
 import { EditIcon } from "../layouts/EditIcon .jsx";
 import { authenticator } from "../server/auth.server.js";
 import { useFetcher } from "@remix-run/react";
-import { NavLink, useNavigation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UploadWidget from "../layouts/uploadimage";
-import { redirect } from "@remix-run/node";
-import "../styles/home.css";
+import "../styles/Home.css";
 import "../styles/Navigation.css";
 import {
   Modal,
@@ -61,7 +60,7 @@ export const loader = async ({ request }) => {
   });
 
   if (products.length === 0) {
-    return redirect("/insert_product");
+    return redirect("/insert-product");
   }
 
   return json({ products, user });
@@ -110,7 +109,6 @@ export default function ReviewTable() {
   const [imageUrl, setImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
-  const navigation = useNavigation();
   const fetcher = useFetcher();
   // Hàm để mở modal và lưu trữ reviewId
   const onOpen = (reviewId) => {
@@ -153,10 +151,9 @@ export default function ReviewTable() {
       toast.error("An error occurred while deleting the review.");
     } finally {
       setIsLoading(false); // Kết thúc trạng thái loading
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 500);
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
       onClose();
     }
   };
@@ -248,10 +245,9 @@ export default function ReviewTable() {
       const result = await response.json();
       toast.error(`Error: ${result.error}`);
     }
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 500);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
     setIsLoading(false);
   };
   function handleUpload(url, error) {
@@ -267,7 +263,6 @@ export default function ReviewTable() {
     <>
       <Toaster position="top-center" richColors />
       <header>
-        {navigation.state === "loading" && <div>Loading...</div>}
         <Navbar className="custom-navbar2">
           <NavbarBrand>
             <img src="./logo.png" alt="logo" height={"70px"} width={"70px"} />

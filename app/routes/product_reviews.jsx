@@ -12,7 +12,7 @@ import { useFetcher } from "@remix-run/react";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UploadWidget from "../layouts/uploadimage";
-import "../styles/home.css";
+import "../styles/Home.css";
 import "../styles/Navigation.css";
 import {
   Modal,
@@ -151,10 +151,9 @@ export default function ReviewTable() {
       toast.error("Error occurred while deleting review");
     } finally {
       setIsLoading(false); // Kết thúc trạng thái loading
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 500);
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
       onClose();
     }
   };
@@ -246,10 +245,9 @@ export default function ReviewTable() {
       const result = await response.json();
       toast.error(`Error: ${result.error}`);
     }
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 500);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
     setIsLoading(false);
   };
   function handleUpload(url, error) {
@@ -594,7 +592,7 @@ export default function ReviewTable() {
         )}
       </div>
 
-      {/* <section className="bg-white">
+      <section className="bg-white">
         <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
           <nav className="flex flex-wrap justify-center -mx-5 -my-2">
             <div className="px-5 py-2">
@@ -723,7 +721,7 @@ export default function ReviewTable() {
             © 2023 Import Review Aliexpress.
           </p>
         </div>
-      </section> */}
+      </section>
     </>
   );
 }

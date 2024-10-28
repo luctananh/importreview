@@ -23,8 +23,9 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
-import "../styles/home.css";
+import "../styles/Home.css";
 import "../styles/Navigation.css";
+import { div } from "framer-motion/client";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
@@ -120,21 +121,15 @@ export default function ProductTable() {
             <img src="./logo.png" alt="logo" height={"70px"} width={"70px"} />
           </NavbarBrand>
 
-          <NavbarContent className="hidden sm:flex gap-4" justify="center">
-            <NavbarItem>
-              <Link color="foreground" href="#">
-                {/* Features */}
-              </Link>
+          <NavbarContent className="hidden sm:flex" justify="center">
+            <NavbarItem className="navbar-item-custom">
+              <Link color="foreground" href="#"></Link>
             </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="#" aria-current="page">
-                {/* Customers */}
-              </Link>
+            <NavbarItem className="navbar-item-custom">
+              <Link color="foreground" href="#" aria-current="page"></Link>
             </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="#">
-                {/* Integrations */}
-              </Link>
+            <NavbarItem className="navbar-item-custom">
+              <Link color="foreground" href="#"></Link>
             </NavbarItem>
           </NavbarContent>
 
@@ -187,7 +182,7 @@ export default function ProductTable() {
               <label>Description</label>
               <input type="text" name="description" required />
             </div>
-            <div>
+            <div className="card_image">
               <label>Image URL</label>
               <UploadWidget onUpload={handleUpload} />
               {errorMessage && (
@@ -219,31 +214,23 @@ export default function ProductTable() {
                 <p>Processing...</p>
               </div>
             ) : (
-              <Button
-                type="submit"
-                onClick={() => toast.success("Add product successfully")}
-                size="sm"
-                radius="sm"
-                variant="flat"
-              >
-                Add Product
-              </Button>
+              <div className="button_prd">
+                <Button
+                  type="submit"
+                  onClick={() => toast.success("Add product successfully")}
+                  size="xl"
+                  radius="sm"
+                  variant="flat"
+                >
+                  Add Product
+                </Button>
+              </div>
             )}
-            <Button
-              size="sm"
-              color="danger"
-              radius="sm"
-              variant="bordered"
-              as={Link}
-              href="./products"
-            >
-              Close
-            </Button>
           </Form>
         </div>
       </div>
 
-      {/* <section className="bg-white">
+      <section className="bg-white">
         <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
           <nav className="flex flex-wrap justify-center -mx-5 -my-2">
             <div className="px-5 py-2">
@@ -372,7 +359,7 @@ export default function ProductTable() {
             © 2023 Import Review Aliexpress.
           </p>
         </div>
-      </section> */}
+      </section>
     </>
   );
 }

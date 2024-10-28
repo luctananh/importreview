@@ -2,9 +2,9 @@ import { authenticator } from "../server/auth.server.js";
 import { useLoaderData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
-import { NavLink, useNavigation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import "../styles/home.css";
+import "../styles/Home.css";
 import "../styles/Navigation.css";
 import {
   Button,
@@ -22,10 +22,12 @@ import { Link } from "@remix-run/react";
 import { Tabs, Tab, Card, CardBody, Switch } from "@nextui-org/react";
 import { Toaster, toast } from "sonner";
 import Product_table from "./Product_table_vs2.jsx";
+import Review_table from "./review_table.jsx";
 
+import Setting from "./setting.jsx";
 import { useFetcher } from "@remix-run/react";
 //ss
-import { getSession, commitSession } from "../server/session.server.js";
+import { getSession, commitSession } from "../server/auth.server.js";
 import { action as deleteProductAction } from "./deleteproduct.jsx";
 import { action as deleteReviewAction } from "./delete_review.jsx";
 import { action as downloandReviews } from "./downloand_reviews.jsx";
@@ -110,7 +112,6 @@ export default function Home() {
   const { user, products } = useLoaderData();
   const [isVertical, setIsVertical] = useState(true);
   const [searchParams] = useSearchParams();
-  const navigation = useNavigation();
 
   const initialTab = searchParams.get("tab") || "Products"; // "Products" là tab mặc định
   // "photos" là tab mặc định
@@ -139,11 +140,15 @@ export default function Home() {
     <>
       <header>
         <Navbar className="custom-navbar2">
-          <NavbarBrand>
-            <img src="./logo.png" alt="logo" height={"70px"} width={"70px"} />
-          </NavbarBrand>
+          <div className="navbar-left">
+            {/* Logo ở bên trái */}
+            <NavbarBrand>
+              <img src="./logo.png" alt="logo" height="70px" width="70px" />
+            </NavbarBrand>
+          </div>
 
-          <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          {/* Nội dung trung tâm */}
+          <NavbarContent className="navbar-center hidden sm:flex gap-4">
             <NavbarItem>
               <Link color="foreground" href="#">
                 {/* Features */}
@@ -161,7 +166,8 @@ export default function Home() {
             </NavbarItem>
           </NavbarContent>
 
-          <NavbarContent as="div" justify="end">
+          <div className="navbar-right">
+            {/* Avatar ở bên phải */}
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Avatar
@@ -187,13 +193,12 @@ export default function Home() {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-          </NavbarContent>
+          </div>
         </Navbar>
       </header>
 
       <div className="card_slide">
         <div className="card_navar">
-          {navigation.state === "loading" && <div>Loading...</div>}
           <nav className="side-nav">
             <ul>
               <li>

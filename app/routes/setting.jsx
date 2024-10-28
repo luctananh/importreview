@@ -18,7 +18,7 @@ import {
 } from "@nextui-org/react";
 import { Link } from "@remix-run/react";
 import "../styles/setting.css";
-import "../styles/home.css";
+import "../styles/Home.css";
 import "../styles/Navigation.css";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
@@ -89,6 +89,7 @@ export default function Setting() {
           </NavbarContent>
         </Navbar>
       </header>
+
       <div className="card_slide">
         <div className="card_navar">
           <nav className="side-nav">
@@ -187,7 +188,7 @@ export default function Setting() {
           </div>
         </div>
       </div>
-      {/* <footer>
+      <footer>
         <section className="bg-white">
           <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
             <nav className="flex flex-wrap justify-center -mx-5 -my-2">
@@ -318,7 +319,7 @@ export default function Setting() {
             </p>
           </div>
         </section>
-      </footer> */}
+      </footer>
     </>
   );
 }
