@@ -173,19 +173,41 @@ export default function ReviewTable() {
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
+  const [currentPage, setCurrentPage] = useState(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const page = parseInt(params.get("currentPage"), 10);
+      return page && !isNaN(page) ? page : 1;
+    }
+    return 1;
+  });
 
-  const [currentPage, setCurrentPage] = useState(1);
   const reviewsPerPage = 10;
+
+  // Cập nhật URL khi currentPage thay đổi, đảm bảo code chỉ chạy client-side
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      params.set("currentPage", currentPage);
+      window.history.replaceState(
+        {},
+        "",
+        `${window.location.pathname}?${params}`
+      );
+    }
+  }, [currentPage]);
+
   // Gộp tất cả review từ các sản phẩm
   const allReviews = getAllReviews(reviews);
 
-  // Tính toán số trang
+  // Tính tổng số trang
   const totalReviews = allReviews.length;
   const totalPages = Math.ceil(totalReviews / reviewsPerPage);
 
   // Tính toán startIndex và endIndex dựa trên trang hiện tại
   const startIndex = (currentPage - 1) * reviewsPerPage;
   const endIndex = startIndex + reviewsPerPage;
+  const currentReviews = allReviews.slice(startIndex, endIndex);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -488,9 +510,25 @@ export default function ReviewTable() {
                                   <label>
                                     Rating:
                                     <input
-                                      type="text"
+                                      type="number"
                                       name="rating"
+                                      min="1"
+                                      max="5"
                                       defaultValue={selectedReview.rating}
+                                      onBlur={(e) => {
+                                        const value = parseInt(
+                                          e.target.value,
+                                          10
+                                        );
+                                        if (
+                                          isNaN(value) ||
+                                          value < 1 ||
+                                          value > 5
+                                        ) {
+                                          e.target.value =
+                                            selectedReview.rating; // Quay về giá trị mặc định
+                                        }
+                                      }}
                                     />
                                   </label>
                                   <ModalFooter>
