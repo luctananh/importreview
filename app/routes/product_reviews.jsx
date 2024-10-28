@@ -3,7 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import "../styles/review_table.css";
-import { getSession } from "../server/session.server";
+import { getSession } from "../server/auth.server.js";
 import { Tooltip } from "@nextui-org/react";
 import { DeleteIcon } from "../layouts/DeleteIcon.jsx";
 import { EditIcon } from "../layouts/EditIcon .jsx";
@@ -594,7 +594,7 @@ export default function ReviewTable() {
         )}
       </div>
 
-      <section className="bg-white">
+      {/* <section className="bg-white">
         <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
           <nav className="flex flex-wrap justify-center -mx-5 -my-2">
             <div className="px-5 py-2">
@@ -723,7 +723,7 @@ export default function ReviewTable() {
             © 2023 Import Review Aliexpress.
           </p>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

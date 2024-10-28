@@ -1,9 +1,14 @@
 import { authenticator } from "../server/auth.server.js";
 
 export const loader = ({ request }) => {
+  const url = new URL(request.url);
+  const prompt = url.searchParams.get("prompt");
   return authenticator.authenticate("auth0", request, {
-    successRedirect: "",
-    failureRedirect: "",
+    successRedirect: "https://importify.io/products",
+    failureRedirect: "/",
+    authParams: {
+      prompt: prompt || "login",
+    },
   });
 };
 

@@ -3,7 +3,7 @@ import { Button, Input } from "@nextui-org/react";
 import { useLoaderData, Form, useFetcher, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
-import { getSession } from "../server/session.server";
+import { getSession } from "../server/auth.server.js";
 import "../styles/product.css";
 import { useEffect } from "react";
 import {

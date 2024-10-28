@@ -8,7 +8,7 @@ export async function action({ request, formData }) {
   const link = formBody.get("productURL");
   const actionType = formBody.get("_actionType");
   const productId = formBody.get("productId");
-  console.log("Received _actionType:", actionType); // Kiểm tra actionType
+  console.log("Received _actionType:", actionType);
   console.log("Received productURL:", link);
   console.log("Received productID:", productId);
 
@@ -22,13 +22,13 @@ export async function action({ request, formData }) {
   try {
     const parts = link.split("/");
     const lastSegment = parts.pop() || parts.pop();
-    const aliProductId = lastSegment.split(".")[0]; // productId từ link Aliexpress
+    const aliProductId = lastSegment.split(".")[0];
 
     let allReviews = [];
     let page = 1;
     let hasNextPage = true;
 
-    while (hasNextPage) {
+    while (hasNextPage && allReviews.length < 30) {
       const feedbackUrl = `https://feedback.aliexpress.com/display/productEvaluation.htm?v=2&productId=${aliProductId}&ownerMemberId=2668009148&companyId=2668009148&memberType=seller&startValidDate=&i18n=true&page=${page}`;
 
       const response = await axios.get(feedbackUrl);
@@ -57,22 +57,22 @@ export async function action({ request, formData }) {
           let reviewRatingValue;
           switch (reviewRating) {
             case "width:100%":
-              reviewRatingValue = "5 stars";
+              reviewRatingValue = "5";
               break;
             case "width:80%":
-              reviewRatingValue = "4 stars";
+              reviewRatingValue = "4";
               break;
             case "width:60%":
-              reviewRatingValue = "3 stars";
+              reviewRatingValue = "3";
               break;
             case "width:40%":
-              reviewRatingValue = "2 stars";
+              reviewRatingValue = "2";
               break;
             case "width:20%":
-              reviewRatingValue = "1 star";
+              reviewRatingValue = "1";
               break;
             default:
-              reviewRatingValue = "5 stars";
+              reviewRatingValue = "5";
           }
 
           return {
@@ -86,8 +86,9 @@ export async function action({ request, formData }) {
         })
         .get();
 
-      // Lưu tất cả các review vào bảng review với productId từ formData
       for (let review of reviews) {
+        if (allReviews.length >= 100) break; // Kiểm tra nếu đã đủ 30 đánh giá
+
         await prisma.review.create({
           data: {
             userName: review.name,
@@ -96,12 +97,14 @@ export async function action({ request, formData }) {
             productImage: review.image,
             reviewContent: review.feedback,
             rating: review.rating,
-            productId: productId, // Sử dụng productId từ formData làm khoá ngoại
+            productId: productId,
           },
         });
       }
 
       allReviews = allReviews.concat(reviews);
+
+      if (allReviews.length >= 100) break; // Dừng nếu đủ 30 đánh giá
 
       const nextPageButton = $(
         ".ui-pagination-next:not(.ui-pagination-disabled)"

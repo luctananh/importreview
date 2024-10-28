@@ -27,7 +27,7 @@ export default function Index() {
   const fetcher2 = useFetcher();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleAuth0Login = () => {
-    fetcher.submit(null, { method: "post", action: "/auth/auth0" });
+    fetcher.load("/auth/auth0?prompt=login");
   };
   const logout = () => {
     fetcher2.submit(null, { method: "post", action: "/auth/logout" });

@@ -30,7 +30,7 @@
   border-radius: 10px; /* Bo góc navbar */
   /* border: solid 2px; */
   border-color: rgb(116, 116, 236);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
 }
 .card_navar {
   width: 20%;
@@ -65,7 +65,23 @@ h1 {
 .add_button img {
   height: 15px;
 }
-footer {
-  margin-left: 265px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-item-custom {
+  margin-right: 50px; /* Điều chỉnh khoảng cách giữa các mục */
 }

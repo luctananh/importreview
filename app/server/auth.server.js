@@ -9,10 +9,12 @@ const sessionStorage = createCookieSessionStorage({
     sameSite: "lax",
     path: "/",
     httpOnly: true,
-    secrets: [process.env.SESSION_SECRET],
+    secrets: ["ZySbrdFDYXG2o/a6XG+XaTQp7fSoKsbGBnTcXkQ7Uzc="],
     secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 24 * 7, //7 ngày
   },
 });
+export const { getSession, commitSession, destroySession } = sessionStorage;
 
 // Tạo authenticator
 export const authenticator = new Authenticator(sessionStorage);

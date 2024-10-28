@@ -36,3 +36,19 @@ label {
   margin-bottom: 5px;
   width: 30px;
 }
+.button_prd {
+  padding-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.card_image {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.button_uploand {
+  width: 20px;
+}
+.button_uploand img {
+  width: 20px;
+}

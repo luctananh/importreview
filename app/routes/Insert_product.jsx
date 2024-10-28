@@ -3,7 +3,7 @@ import { Button, Link } from "@nextui-org/react";
 import { useLoaderData, Form } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
-import { getSession } from "../server/session.server";
+import { getSession } from "../server/auth.server.js";
 import "../styles/insert_product.css";
 import UploadWidget from "../layouts/uploadimage";
 import { useState } from "react";
@@ -243,7 +243,7 @@ export default function ProductTable() {
         </div>
       </div>
 
-      <section className="bg-white">
+      {/* <section className="bg-white">
         <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
           <nav className="flex flex-wrap justify-center -mx-5 -my-2">
             <div className="px-5 py-2">
@@ -372,7 +372,7 @@ export default function ProductTable() {
             © 2023 Import Review Aliexpress.
           </p>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
