@@ -441,7 +441,9 @@ export default function ReviewTable() {
                               </ModalHeader>
                               <ModalBody>
                                 <label>Image URL:</label>
-                                <UploadWidget onUpload={handleUpload} />
+                                <div>
+                                  <UploadWidget onUpload={handleUpload} />
+                                </div>
                                 {errorMessage && (
                                   <p style={{ color: "red" }}>{errorMessage}</p>
                                 )}
