@@ -67,7 +67,7 @@ function UploadWidget({ onUpload }) {
 
   return (
     <Button size="sm" onClick={open} className="button_uploand">
-      <img src="/uploadd.svg" alt="uploand_image" />
+      <img src="/upload.svg" alt="uploand_image" />
     </Button>
   );
 }
