@@ -158,6 +158,15 @@ export default function ProductTable() {
     );
     return !!pattern.test(url);
   };
+
+  useEffect(() => {
+    if (fetcher.state === "idle" && isLoading1) {
+      setIsLoading1(false); // Tắt spinner
+      onOpenChange1(false); // Đóng modal
+      setProductURL(""); // Reset URL sau khi đóng modal
+      setSelectedProduct(null); // Reset sản phẩm sau khi đóng modal
+    }
+  }, [fetcher.state]);
   const handleImportReviews = async () => {
     if (!productURL || !isValidURL(productURL)) {
       toast.error("Please enter a valid product URL");
