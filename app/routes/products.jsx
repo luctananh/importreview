@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "../styles/home.css";
 import "../styles/Navigation.css";
+import "../styles/responsive.css";
 import {
   Button,
   Navbar,
@@ -220,6 +221,27 @@ export default function Home() {
           </nav>
         </div>
         <div className="product_table">
+          <div className="navbar-container">
+            <nav>
+              <ul>
+                <li>
+                  <NavLink to="/products" exact activeClassName="active">
+                    Products
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/review_table" activeClassName="active">
+                    Reviews
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/setting" activeClassName="active">
+                    Setting
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
           <div className="card_text2">
             <h1>Proructs</h1>
             <Link className="add_button" to="/Insert_product">

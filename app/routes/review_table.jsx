@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import UploadWidget from "../layouts/uploadimage";
 import "../styles/home.css";
 import "../styles/Navigation.css";
+import "../styles/responsive.css";
 import {
   Modal,
   Pagination,
@@ -374,6 +375,27 @@ export default function ReviewTable() {
           </nav>
         </div>
         <div className="product_table">
+          <div className="navbar-container">
+            <nav>
+              <ul>
+                <li>
+                  <NavLink to="/products" exact activeClassName="active">
+                    Products
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/review_table" activeClassName="active">
+                    Reviews
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/setting" activeClassName="active">
+                    Setting
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
           <div className="card_text">
             <h1>Reviews</h1>
           </div>

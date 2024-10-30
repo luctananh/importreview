@@ -20,6 +20,7 @@ import { Link } from "@remix-run/react";
 import "../styles/setting.css";
 import "../styles/home.css";
 import "../styles/Navigation.css";
+import "../styles/responsive.css";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
@@ -113,6 +114,27 @@ export default function Setting() {
           </nav>
         </div>
         <div className="setting_body">
+          <div className="navbar-container">
+            <nav>
+              <ul>
+                <li>
+                  <NavLink to="/products" exact activeClassName="active">
+                    Products
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/review_table" activeClassName="active">
+                    Reviews
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/setting" activeClassName="active">
+                    Setting
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
           <div className="text-setting">
             <h1>Setting</h1>
           </div>
