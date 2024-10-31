@@ -292,59 +292,58 @@ export default function ReviewTable() {
   return (
     <>
       <Toaster position="top-center" richColors />
-      <header>
-        <Navbar className="custom-navbar2">
-          <NavbarBrand>
-            <img src="/logo.png" alt="logo" height={"70px"} width={"70px"} />
-          </NavbarBrand>
 
-          <NavbarContent className="hidden sm:flex gap-4" justify="center">
-            <NavbarItem>
-              <Link color="foreground" href="#">
-                {/* Features */}
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="#" aria-current="page">
-                {/* Customers */}
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="#">
-                {/* Integrations */}
-              </Link>
-            </NavbarItem>
-          </NavbarContent>
+      <Navbar className="custom-navbar2">
+        <NavbarBrand>
+          <img src="/logo.png" alt="logo" height={"70px"} width={"70px"} />
+        </NavbarBrand>
 
-          <NavbarContent as="div" justify="end">
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <Avatar
-                  isBordered
-                  as="button"
-                  className="transition-transform"
-                  color="success"
-                  name={user._json.name}
-                  size="sm"
-                  src={user._json.picture}
-                />
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="profile" className="h-14 gap-2">
-                  <p className="font-semibold">{user._json.name}</p>
-                  <p className="font-semibold">{user._json.email}</p>
-                </DropdownItem>
-                <DropdownItem key="help_and_feedback">
-                  Help & Feedback
-                </DropdownItem>
-                <DropdownItem key="logout" color="danger">
-                  <Button onClick={logout}> Sign Out </Button>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </NavbarContent>
-        </Navbar>
-      </header>
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              {/* Features */}
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#" aria-current="page">
+              {/* Customers */}
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              {/* Integrations */}
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+
+        <NavbarContent as="div" justify="end">
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="success"
+                name={user._json.name}
+                size="sm"
+                src={user._json.picture}
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">{user._json.name}</p>
+                <p className="font-semibold">{user._json.email}</p>
+              </DropdownItem>
+              <DropdownItem key="help_and_feedback">
+                Help & Feedback
+              </DropdownItem>
+              <DropdownItem key="logout" color="danger">
+                <Button onClick={logout}> Sign Out </Button>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarContent>
+      </Navbar>
 
       <div className="product_table">
         <div className="card_text">

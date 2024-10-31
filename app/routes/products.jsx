@@ -139,64 +139,62 @@ export default function Home() {
 
   return (
     <>
-      <header>
-        <Navbar className="custom-navbar2">
-          <div className="navbar-left">
-            {/* Logo ở bên trái */}
-            <NavbarBrand>
-              <img src="./logo.png" alt="logo" height="70px" width="70px" />
-            </NavbarBrand>
-          </div>
+      <Navbar className="custom-navbar2">
+        <div className="navbar-left">
+          {/* Logo ở bên trái */}
+          <NavbarBrand>
+            <img src="./logo.png" alt="logo" height="70px" width="70px" />
+          </NavbarBrand>
+        </div>
 
-          {/* Nội dung trung tâm */}
-          <NavbarContent className="navbar-center hidden sm:flex gap-4">
-            <NavbarItem>
-              <Link color="foreground" href="#">
-                {/* Features */}
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="#" aria-current="page">
-                {/* Customers */}
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link color="foreground" href="#">
-                {/* Integrations */}
-              </Link>
-            </NavbarItem>
-          </NavbarContent>
+        {/* Nội dung trung tâm */}
+        <NavbarContent className="navbar-center hidden sm:flex gap-4">
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              {/* Features */}
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#" aria-current="page">
+              {/* Customers */}
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              {/* Integrations */}
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
 
-          <div className="navbar-right">
-            {/* Avatar ở bên phải */}
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <Avatar
-                  isBordered
-                  as="button"
-                  className="transition-transform"
-                  color="success"
-                  name={user._json.name}
-                  size="sm"
-                  src={user._json.picture}
-                />
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="profile" className="h-14 gap-2">
-                  <p className="font-semibold">{user._json.name}</p>
-                  <p className="font-semibold">{user._json.email}</p>
-                </DropdownItem>
-                <DropdownItem key="help_and_feedback">
-                  Help & Feedback
-                </DropdownItem>
-                <DropdownItem key="logout" color="danger">
-                  <Button onClick={logout}> Sign Out </Button>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        </Navbar>
-      </header>
+        <div className="navbar-right">
+          {/* Avatar ở bên phải */}
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="success"
+                name={user._json.name}
+                size="sm"
+                src={user._json.picture}
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">{user._json.name}</p>
+                <p className="font-semibold">{user._json.email}</p>
+              </DropdownItem>
+              <DropdownItem key="help_and_feedback">
+                Help & Feedback
+              </DropdownItem>
+              <DropdownItem key="logout" color="danger">
+                <Button onClick={logout}> Sign Out </Button>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+      </Navbar>
 
       <div className="card_slide">
         <div className="card_navar">
