@@ -440,216 +440,230 @@ export default function ReviewTable() {
                 </tr>
               </thead>
               <tbody>
-                {allReviews.slice(startIndex, endIndex).map((review) => (
-                  <tr key={review.id}>
-                    <td>
-                      <img src={review.productImage} alt="" />
-                    </td>
-                    <td>{review.userName}</td>
-                    <td>{review.userContry}</td>
-                    <td>{review.reviewContent}</td>
-                    <td>
-                      <StarRating rating={review.rating} />
-                    </td>
-                    <td>
-                      <Tooltip content="Edit review">
-                        <Button
-                          onClick={() => onEditOpen2(review)}
-                          variant="faded"
-                          size="sm"
-                        >
-                          <img
-                            className="edit_icon"
-                            src="./edit.svg"
-                            alt="edit icon"
-                          />
-                        </Button>
-                      </Tooltip>
-                      {selectedReview && (
-                        <Modal
-                          size="4xl"
-                          isOpen={isOpenEdit}
-                          onOpenChange={setIsOpenEdit}
-                          scrollBehavior={scrollBehavior}
-                        >
-                          <>
-                            <ModalContent>
-                              <ModalHeader className="flex flex-col gap-1">
-                                <h1>Edit review</h1>
-                              </ModalHeader>
-                              <ModalBody>
-                                <label>Image URL:</label>
-                                <div>
-                                  <UploadWidget onUpload={handleUpload} />
-                                </div>
-                                {errorMessage && (
-                                  <p style={{ color: "red" }}>{errorMessage}</p>
-                                )}
-                                {(imageUrl || selectedReview.productImage) && (
+                {allReviews.length > 0 ? (
+                  allReviews.slice(startIndex, endIndex).map((review) => (
+                    <tr key={review.id}>
+                      <td>
+                        <img src={review.productImage} alt="" />
+                      </td>
+                      <td>{review.userName}</td>
+                      <td>{review.userContry}</td>
+                      <td>{review.reviewContent}</td>
+                      <td>
+                        <StarRating rating={review.rating} />
+                      </td>
+                      <td>
+                        <Tooltip content="Edit review">
+                          <Button
+                            onClick={() => onEditOpen2(review)}
+                            variant="faded"
+                            size="sm"
+                          >
+                            <img
+                              className="edit_icon"
+                              src="./edit.svg"
+                              alt="edit icon"
+                            />
+                          </Button>
+                        </Tooltip>
+                        {selectedReview && (
+                          <Modal
+                            size="4xl"
+                            isOpen={isOpenEdit}
+                            onOpenChange={setIsOpenEdit}
+                            scrollBehavior={scrollBehavior}
+                          >
+                            <>
+                              <ModalContent>
+                                <ModalHeader className="flex flex-col gap-1">
+                                  <h1>Edit review</h1>
+                                </ModalHeader>
+                                <ModalBody>
+                                  <label>Image URL:</label>
                                   <div>
-                                    <h3>Image:</h3>
-                                    <img
-                                      src={
-                                        imageUrl || selectedReview.productImage
-                                      } // Hiển thị ảnh mới nếu có, nếu không hiển thị ảnh cũ
-                                      alt="Uploaded"
-                                      height={"100px"}
-                                      width={"100px"}
-                                    />
+                                    <UploadWidget onUpload={handleUpload} />
                                   </div>
-                                )}
+                                  {errorMessage && (
+                                    <p style={{ color: "red" }}>
+                                      {errorMessage}
+                                    </p>
+                                  )}
+                                  {(imageUrl ||
+                                    selectedReview.productImage) && (
+                                    <div>
+                                      <h3>Image:</h3>
+                                      <img
+                                        src={
+                                          imageUrl ||
+                                          selectedReview.productImage
+                                        }
+                                        alt="Uploaded"
+                                        height={"100px"}
+                                        width={"100px"}
+                                      />
+                                    </div>
+                                  )}
 
-                                <Form
-                                  method="post"
-                                  action="/update_review"
-                                  onSubmit={handleUpdateReview}
-                                  className="edit_from"
-                                >
-                                  <input
-                                    type="hidden"
-                                    name="reviewId"
-                                    value={selectedReview.id}
-                                  />
-
-                                  <label>
+                                  <Form
+                                    method="post"
+                                    action="/update_review"
+                                    onSubmit={handleUpdateReview}
+                                    className="edit_from"
+                                  >
                                     <input
                                       type="hidden"
-                                      name="url"
-                                      value={imageUrl}
-                                    />{" "}
-                                  </label>
-                                  <label>
-                                    Name:
-                                    <input
-                                      type="text"
-                                      name="name"
-                                      defaultValue={selectedReview.userName}
-                                      required
+                                      name="reviewId"
+                                      value={selectedReview.id}
                                     />
-                                  </label>
-                                  <label>
-                                    Country:
-                                    <input
-                                      type="text"
-                                      name="country"
-                                      defaultValue={selectedReview.userContry}
-                                      required
-                                    />
-                                  </label>
-                                  <label>
-                                    Content:
-                                    <textarea
-                                      name="content"
-                                      id="content"
-                                      defaultValue={
-                                        selectedReview.reviewContent
-                                      }
-                                      required
-                                    />
-                                  </label>
-                                  <label>
-                                    Rating:
-                                    <input
-                                      type="number"
-                                      name="rating"
-                                      min="1"
-                                      max="5"
-                                      defaultValue={selectedReview.rating}
-                                      onBlur={(e) => {
-                                        const value = parseInt(
-                                          e.target.value,
-                                          10
-                                        );
-                                        if (
-                                          isNaN(value) ||
-                                          value < 1 ||
-                                          value > 5
-                                        ) {
-                                          e.target.value =
-                                            selectedReview.rating; // Quay về giá trị mặc định
+                                    <label>
+                                      <input
+                                        type="hidden"
+                                        name="url"
+                                        value={imageUrl}
+                                      />
+                                    </label>
+                                    <label>
+                                      Name:
+                                      <input
+                                        type="text"
+                                        name="name"
+                                        defaultValue={selectedReview.userName}
+                                        required
+                                      />
+                                    </label>
+                                    <label>
+                                      Country:
+                                      <input
+                                        type="text"
+                                        name="country"
+                                        defaultValue={selectedReview.userContry}
+                                        required
+                                      />
+                                    </label>
+                                    <label>
+                                      Content:
+                                      <textarea
+                                        name="content"
+                                        id="content"
+                                        defaultValue={
+                                          selectedReview.reviewContent
                                         }
-                                      }}
-                                    />
-                                  </label>
-                                  <ModalFooter>
-                                    <Button
-                                      onClick={() => setIsOpenEdit(false)}
-                                    >
-                                      Cancel
-                                    </Button>
-                                    <Button type="submit" disabled={isLoading}>
-                                      {isLoading ? "Updating..." : "Update"}
-                                    </Button>
-                                  </ModalFooter>
-                                </Form>
-                              </ModalBody>
-                            </ModalContent>
-                          </>
-                        </Modal>
-                      )}
-                    </td>
-                    <td>
-                      <Tooltip content="Delete review">
-                        <Button
-                          onPress={() => onOpen(review.id)}
-                          variant="faded"
-                          size="sm"
-                          type="submit"
-                        >
-                          <img
-                            className="delete_icon"
-                            src="./trash.svg"
-                            alt="delete icon"
-                          />
-                        </Button>
-                      </Tooltip>
-                      {selectedReviewId === review.id && ( // Hiển thị modal chỉ cho review đang được chọn
-                        <Modal
-                          isOpen={isOpen}
-                          onOpenChange={setIsOpen}
-                          isDismissable={false}
-                          isKeyboardDismissDisabled={true}
-                        >
-                          <ModalContent>
-                            <>
-                              <ModalHeader className="flex flex-col gap-1">
-                                Delete Review
-                              </ModalHeader>
-                              <ModalBody>
-                                <p>
-                                  Are you sure you want to delete this review?
-                                </p>
-                              </ModalBody>
-                              <ModalFooter>
-                                <Button
-                                  color="danger"
-                                  variant="light"
-                                  onPress={onClose}
-                                >
-                                  Cancel
-                                </Button>
-                                <Form
-                                  method="post"
-                                  action="/delete_review"
-                                  onSubmit={handleDelete}
-                                >
-                                  <input
-                                    type="hidden"
-                                    name="reviewId"
-                                    value={review.id}
-                                  />
-                                  <Button type="submit" disabled={isLoading}>
-                                    {isLoading ? "Deleting..." : "Delete"}
-                                  </Button>
-                                </Form>
-                              </ModalFooter>
+                                        required
+                                      />
+                                    </label>
+                                    <label>
+                                      Rating:
+                                      <input
+                                        type="number"
+                                        name="rating"
+                                        min="1"
+                                        max="5"
+                                        defaultValue={selectedReview.rating}
+                                        onBlur={(e) => {
+                                          const value = parseInt(
+                                            e.target.value,
+                                            10
+                                          );
+                                          if (
+                                            isNaN(value) ||
+                                            value < 1 ||
+                                            value > 5
+                                          ) {
+                                            e.target.value =
+                                              selectedReview.rating;
+                                          }
+                                        }}
+                                      />
+                                    </label>
+                                    <ModalFooter>
+                                      <Button
+                                        onClick={() => setIsOpenEdit(false)}
+                                      >
+                                        Cancel
+                                      </Button>
+                                      <Button
+                                        type="submit"
+                                        disabled={isLoading}
+                                      >
+                                        {isLoading ? "Updating..." : "Update"}
+                                      </Button>
+                                    </ModalFooter>
+                                  </Form>
+                                </ModalBody>
+                              </ModalContent>
                             </>
-                          </ModalContent>
-                        </Modal>
-                      )}
+                          </Modal>
+                        )}
+                      </td>
+                      <td>
+                        <Tooltip content="Delete review">
+                          <Button
+                            onPress={() => onOpen(review.id)}
+                            variant="faded"
+                            size="sm"
+                            type="submit"
+                          >
+                            <img
+                              className="delete_icon"
+                              src="./trash.svg"
+                              alt="delete icon"
+                            />
+                          </Button>
+                        </Tooltip>
+                        {selectedReviewId === review.id && (
+                          <Modal
+                            isOpen={isOpen}
+                            onOpenChange={setIsOpen}
+                            isDismissable={false}
+                            isKeyboardDismissDisabled={true}
+                          >
+                            <ModalContent>
+                              <>
+                                <ModalHeader className="flex flex-col gap-1">
+                                  Delete Review
+                                </ModalHeader>
+                                <ModalBody>
+                                  <p>
+                                    Are you sure you want to delete this review?
+                                  </p>
+                                </ModalBody>
+                                <ModalFooter>
+                                  <Button
+                                    color="danger"
+                                    variant="light"
+                                    onPress={onClose}
+                                  >
+                                    Cancel
+                                  </Button>
+                                  <Form
+                                    method="post"
+                                    action="/delete_review"
+                                    onSubmit={handleDelete}
+                                  >
+                                    <input
+                                      type="hidden"
+                                      name="reviewId"
+                                      value={review.id}
+                                    />
+                                    <Button type="submit" disabled={isLoading}>
+                                      {isLoading ? "Deleting..." : "Delete"}
+                                    </Button>
+                                  </Form>
+                                </ModalFooter>
+                              </>
+                            </ModalContent>
+                          </Modal>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="no-reviews">
+                      No reviews available.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
             <div className="pagination">
