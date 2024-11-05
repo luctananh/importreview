@@ -91,6 +91,7 @@ const getAllReviews = (products) => {
   });
   return allReviews;
 };
+console.log(getAllReviews.length);
 const StarRating = ({ rating }) => {
   // Chuyển đổi rating từ chuỗi sang số
   const numericRating = parseInt(rating, 10);
