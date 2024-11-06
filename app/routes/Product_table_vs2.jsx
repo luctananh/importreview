@@ -111,6 +111,15 @@ export default function ProductTable() {
 
     // Kiểm tra số lượng review của sản phẩm
     if (selectedProduct.reviewCount === 0) {
+      if (products.length === 1) {
+        // Nếu chỉ còn một sản phẩm, hiển thị thông báo lỗi
+        toast.error("You need at least one product.");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+        setIsLoading(false);
+        return;
+      }
       // Nếu không có review, tiến hành xóa sản phẩm
       setIsLoading(true); // Bắt đầu trạng thái loading
 

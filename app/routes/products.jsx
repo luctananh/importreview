@@ -80,7 +80,7 @@ export async function loader({ request }) {
 
   // Nếu chưa có sản phẩm, chuyển hướng đến trang tạo sản phẩm
   if (products.length === 0) {
-    return redirect("/Insert_product", {
+    return redirect("/checkproduct", {
       headers: { "Set-Cookie": cookieHeader },
     });
   }
