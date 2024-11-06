@@ -20,6 +20,11 @@ export async function action({ request, formData }) {
   }
 
   try {
+    const setting = await prisma.setting.findFirst();
+    const maxReviewCount = setting ? setting.maxReviewCount : 20; // Nếu không có cài đặt, mặc định là 20
+
+    console.log("Max Review Count from setting:", maxReviewCount); // Kiểm tra giá trị maxReviewCount từ setting
+
     const parts = link.split("/");
     const lastSegment = parts.pop() || parts.pop();
     const aliProductId = lastSegment.split(".")[0];
@@ -87,7 +92,7 @@ export async function action({ request, formData }) {
         .get();
 
       for (let review of reviews) {
-        if (allReviews.length >= 100) break; // Kiểm tra nếu đã đủ 30 đánh giá
+        if (allReviews.length >= parseInt(maxReviewCount)) break; // Kiểm tra nếu đã đủ 30 đánh giá
 
         await prisma.review.create({
           data: {
@@ -104,7 +109,7 @@ export async function action({ request, formData }) {
 
       allReviews = allReviews.concat(reviews);
 
-      if (allReviews.length >= 100) break; // Dừng nếu đủ 30 đánh giá
+      if (allReviews.length >= parseInt(maxReviewCount)) break; // Dừng nếu đủ 30 đánh giá
 
       const nextPageButton = $(
         ".ui-pagination-next:not(.ui-pagination-disabled)"
