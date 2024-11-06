@@ -15,3 +15,40 @@
 .text_setting {
   margin-bottom: -15px;
 }
+select {
+  padding: 10px 15px; /* Khoảng cách bên trong */
+  font-size: 16px; /* Kích thước font */
+  border: 2px solid #ccc; /* Viền */
+  border-radius: 5px; /* Bo góc */
+  background-color: #f9f9f9; /* Màu nền */
+  color: #333; /* Màu chữ */
+  appearance: none; /* Loại bỏ kiểu mặc định của select */
+  outline: none; /* Xóa viền focus mặc định */
+  cursor: pointer; /* Hiển thị con trỏ chuột */
+  transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động */
+}
+
+select:focus {
+  border-color: #007bff; /* Màu viền khi focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Hiệu ứng shadow khi focus */
+}
+
+select:hover {
+  background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+option {
+  padding: 10px; /* Khoảng cách trong option */
+  background-color: #fff; /* Màu nền của option */
+  color: #333; /* Màu chữ của option */
+}
+
+option:hover {
+  background-color: #ddd; /* Màu nền khi hover trong option */
+}
+.save_setting {
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

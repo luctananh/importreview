@@ -14,39 +14,47 @@ datasource db {
  
   
 }
-model User {
-  id               String       @id @default(cuid())
-  email            String       @unique
-  userName         String?
-  isEmailVerified  Boolean      @default(false)
-  isAdmin          Boolean      @default(false)
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  picture          String?
-  products         Product[]
-}
+  model User {
+    id               String       @id @default(cuid())
+    email            String       @unique
+    userName         String?
+    isEmailVerified  Boolean      @default(false)
+    isAdmin          Boolean      @default(false)
+    createdAt        DateTime     @default(now())
+    updatedAt        DateTime     @updatedAt
+    picture          String?
+    products         Product[]
+    setting          Setting? 
+  }
 
-model Product {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
-  url        String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  reviews     Review[]
-}
+  model Product {
+    id          String   @id @default(cuid())
+    name        String
+    description String?
+    user        User      @relation(fields: [userId], references: [id])
+    userId      String
+    url        String?
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    reviews     Review[]
+  }
 
-model Review {
-  id        String  @id @default(cuid())
-  userName       String
-  userAvatar     String?
-  userContry    String?
-  productImage     String?
-  reviewContent   String
-  rating         String
-  product   Product @relation(fields: [productId], references: [id])
-  productId String
-
+  model Review {
+    id        String  @id @default(cuid())
+    userName       String
+    userAvatar     String?
+    userContry    String?
+    productImage     String?
+    reviewContent   String
+    rating         String
+    product   Product @relation(fields: [productId], references: [id])
+    productId String
+  }
+ model Setting {
+  id            Int    @id @default(autoincrement())
+  userId        String @unique
+  maxReviewCount Int
+  key           Int
+  user          User   @relation(fields: [userId], references: [id])
+  @@index([userId])
 }
