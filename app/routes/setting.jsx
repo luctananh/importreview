@@ -19,7 +19,7 @@ import {
 } from "@nextui-org/react";
 import { Link } from "@remix-run/react";
 import "../styles/setting.css";
-import "../styles/Home.css";
+import "../styles/home.css";
 import "../styles/Navigation.css";
 import "../styles/responsive.css";
 import { prisma } from "../server/db.server";
