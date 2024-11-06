@@ -1,31 +1,8 @@
-import React from "react";
-import { Button, Link } from "@nextui-org/react";
-import { useLoaderData, Form } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import { getSession } from "../server/auth.server.js";
-import "../styles/insert_product.css";
-import UploadWidget from "../layouts/uploadimage";
-import { useState } from "react";
-import { Toaster, toast } from "sonner";
+
 import { authenticator } from "../server/auth.server.js";
-import { useFetcher } from "@remix-run/react";
-import {
-  Tooltip,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  Avatar,
-} from "@nextui-org/react";
-import { NavLink } from "react-router-dom";
-import "../styles/Home.css";
-import "../styles/Navigation.css";
-import { div } from "framer-motion/client";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
 
