@@ -33,7 +33,7 @@ export async function action({ request, formData }) {
     let page = 1;
     let hasNextPage = true;
 
-    while (hasNextPage && allReviews.length < 30) {
+    while (hasNextPage && allReviews.length < parseInt(maxReviewCount)) {
       const feedbackUrl = `https://feedback.aliexpress.com/display/productEvaluation.htm?v=2&productId=${aliProductId}&ownerMemberId=2668009148&companyId=2668009148&memberType=seller&startValidDate=&i18n=true&page=${page}`;
 
       const response = await axios.get(feedbackUrl);
