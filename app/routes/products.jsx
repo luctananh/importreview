@@ -236,7 +236,7 @@ export default function Home() {
           </div>
           <div className="card_text2">
             <h1>Proructs</h1>
-            <Link className="add_button" to="/Insert_product">
+            <Link className="add_button" to="/Insert/product">
               <Button color="default" radius="sm" variant="faded">
                 <img src="./plus.svg" alt="add_button" />
                 Add product
