@@ -2,6 +2,9 @@
 .custom-navbar2 {
   position: fixed;
 }
+.max-w-\[1024px\] {
+  max-width: 1300px; /* Thay đổi giá trị max-width theo ý muốn */
+}
 .side-nav {
   position: fixed;
   top: 70px; /* Bắt đầu ngay dưới thanh navigation ngang có chiều cao 70px */
@@ -32,7 +35,7 @@
   text-decoration: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .side-nav ul li a:hover {

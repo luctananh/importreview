@@ -132,17 +132,26 @@ export default function Setting() {
             <ul>
               <li>
                 <NavLink to="/products" exact activeClassName="active">
-                  Products
+                  <div className="nava_product">
+                    <img src="/productst.svg" alt="product-icon" />
+                    <p>Products</p>
+                  </div>
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/review_table" activeClassName="active">
-                  Reviews
+                  <div className="nava_product">
+                    <img src="/review.svg" alt="review-icon" />
+                    <p>Reviews</p>
+                  </div>
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/setting" activeClassName="active">
-                  Setting
+                  <div className="nava_product">
+                    <img src="/setting.svg" alt="seting-icon" />
+                    <p>Setting</p>
+                  </div>
                 </NavLink>
               </li>
             </ul>

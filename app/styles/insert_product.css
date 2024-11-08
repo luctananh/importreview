@@ -2,7 +2,7 @@
 .modal_container {
   margin: 0 auto;
   margin-top: 70px;
-  width: 85%;
+  width: 50%;
 }
 
 /* Styles cho form */
@@ -26,11 +26,12 @@ label {
 }
 .card_title {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
 .card_title h1 {
   text-align: start;
+  padding-top: 5px;
 }
 .card_title img {
   margin-bottom: 5px;

@@ -52,3 +52,12 @@ option:hover {
   align-items: center;
   justify-content: flex-end;
 }
+.nava_product {
+  display: flex;
+  padding-left: 5px;
+  gap: 5px;
+  align-items: center;
+}
+.nava_product img {
+  width: 20px;
+}

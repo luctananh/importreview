@@ -294,7 +294,6 @@ export default function ProductTable() {
                             </ModalBody>
                             <ModalFooter>
                               <Button
-                                color="danger"
                                 variant="light"
                                 onPress={onClose}
                                 disabled={isLoading1} // Vô hiệu hóa nút khi đang tải
@@ -375,11 +374,7 @@ export default function ProductTable() {
                             <p>Are you sure you want to delete this product?</p>
                           </ModalBody>
                           <ModalFooter>
-                            <Button
-                              color="danger"
-                              variant="light"
-                              onPress={onClose2}
-                            >
+                            <Button variant="light" onPress={onClose2}>
                               Close
                             </Button>
                             <Form
@@ -423,11 +418,7 @@ export default function ProductTable() {
                             </p>
                           </ModalBody>
                           <ModalFooter>
-                            <Button
-                              color="danger"
-                              variant="light"
-                              onPress={onClose3}
-                            >
+                            <Button variant="light" onPress={onClose3}>
                               Close
                             </Button>
                             <Form

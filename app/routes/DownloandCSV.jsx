@@ -66,7 +66,6 @@ export default function DownloadCSV() {
               </Button>
               <Button
                 size="sm"
-                color="danger"
                 radius="sm"
                 variant="bordered"
                 as={Link}
