@@ -353,8 +353,8 @@ export default function ReviewTable() {
             </Link>
           </Tooltip>
           <h1>{nameProduct}</h1>
-          <h2 className="total-reviews">Total Reviews: {totalReviewCount}</h2>
         </div>
+        <h2 className="total-reviews">Total Reviews: {totalReviewCount}</h2>
         {totalReviewCount > 0 ? (
           <div className="table-review">
             <table>

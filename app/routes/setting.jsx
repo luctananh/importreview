@@ -76,7 +76,7 @@ export default function Setting() {
         {navigation.state === "loading" && <div>Loading...</div>}
         <Navbar className="custom-navbar2">
           <NavbarBrand>
-            <img src="./logo.png" alt="logo" height={"70px"} width={"70px"} />
+            <img className="logo_icon" src="./logo.png" alt="logo" />
           </NavbarBrand>
           <NavbarContent className="hidden sm:flex gap-4" justify="center">
             <NavbarItem>
