@@ -3,7 +3,7 @@ import { Button, Input } from "@nextui-org/react";
 import { useLoaderData, Form, useFetcher, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
-import { getSession } from "../server/auth.server.js";
+import { getSession } from "../server/auth.server";
 import "../styles/product.css";
 import { useEffect } from "react";
 import {
@@ -40,9 +40,6 @@ export const loader = async ({ request }) => {
     },
   });
 
-  if (products.length === 0) {
-    return redirect("/create-product");
-  }
   const productsWithReviewCount = products.map((product) => ({
     ...product,
     reviewCount: product.reviews.length, // Đếm số lượng review
@@ -111,15 +108,6 @@ export default function ProductTable() {
 
     // Kiểm tra số lượng review của sản phẩm
     if (selectedProduct.reviewCount === 0) {
-      if (products.length === 1) {
-        // Nếu chỉ còn một sản phẩm, hiển thị thông báo lỗi
-        toast.error("You need at least one product.");
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-        setIsLoading(false);
-        return;
-      }
       // Nếu không có review, tiến hành xóa sản phẩm
       setIsLoading(true); // Bắt đầu trạng thái loading
 
@@ -157,25 +145,10 @@ export default function ProductTable() {
   };
   const isValidURL = (url) => {
     const pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
+      "^(https?:\\/\\/)?" // protocol
     );
     return !!pattern.test(url);
   };
-
-  useEffect(() => {
-    if (fetcher.state === "idle" && isLoading1) {
-      setIsLoading1(false); // Tắt spinner
-      onOpenChange1(false); // Đóng modal
-      setProductURL(""); // Reset URL sau khi đóng modal
-      setSelectedProduct(null); // Reset sản phẩm sau khi đóng modal
-    }
-  }, [fetcher.state]);
   const handleImportReviews = async () => {
     if (!productURL || !isValidURL(productURL)) {
       toast.error("Please enter a valid product URL");
@@ -240,7 +213,7 @@ export default function ProductTable() {
                 onClick={() =>
                   (window.location.href = `/product_reviews/?pI=${
                     product.id
-                  }&na=${encodeURIComponent(product.name)}&order=asc`)
+                  }&na=${encodeURIComponent(product.name)}`)
                 }
               >
                 <td>
@@ -294,6 +267,7 @@ export default function ProductTable() {
                             </ModalBody>
                             <ModalFooter>
                               <Button
+                                color="danger"
                                 variant="light"
                                 onPress={onClose}
                                 disabled={isLoading1} // Vô hiệu hóa nút khi đang tải
@@ -356,7 +330,6 @@ export default function ProductTable() {
                       )}
                     </DropdownMenu>
                   </Dropdown>
-
                   <Modal
                     isOpen={isOpen2}
                     onOpenChange={() => {
@@ -374,7 +347,11 @@ export default function ProductTable() {
                             <p>Are you sure you want to delete this product?</p>
                           </ModalBody>
                           <ModalFooter>
-                            <Button variant="light" onPress={onClose2}>
+                            <Button
+                              color="danger"
+                              variant="light"
+                              onPress={onClose2}
+                            >
                               Close
                             </Button>
                             <Form
@@ -393,7 +370,6 @@ export default function ProductTable() {
                                 name="_actionType"
                                 defaultValue="Delete_product"
                               />
-
                               <Button type="submit" disabled={isLoading}>
                                 {isLoading ? "Deleting..." : "Delete"}
                               </Button>
@@ -403,7 +379,6 @@ export default function ProductTable() {
                       )}
                     </ModalContent>
                   </Modal>
-
                   <Modal isOpen={isOpen3} onOpenChange={onOpenChange3}>
                     <ModalContent>
                       {(onClose3) => (
@@ -418,7 +393,11 @@ export default function ProductTable() {
                             </p>
                           </ModalBody>
                           <ModalFooter>
-                            <Button variant="light" onPress={onClose3}>
+                            <Button
+                              color="danger"
+                              variant="light"
+                              onPress={onClose3}
+                            >
                               Close
                             </Button>
                             <Form

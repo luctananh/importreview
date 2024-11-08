@@ -72,9 +72,6 @@ export const loader = async ({ request }) => {
       },
     },
   });
-  if (products.length === 0) {
-    return redirect("/insert-product");
-  }
 
   return json({ products, user });
 };
