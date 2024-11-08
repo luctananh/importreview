@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 .table-container {
   overflow-y: auto; /* Kích hoạt cuộn dọc khi nội dung vượt quá chiều cao */
-  border: 1px solid #ddd;
+
   border-radius: 16px;
   font-family: "Arial", sans-serif; /* Font chữ cho toàn bộ bảng */
   font-size: 1.2rem;
   text-align: center;
+  padding-left: 15px;
 }
 
 table {
