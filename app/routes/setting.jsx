@@ -24,6 +24,7 @@ import "../styles/Navigation.css";
 import "../styles/responsive.css";
 import { prisma } from "../server/db.server";
 import { useState } from "react";
+import { Toaster, toast } from "sonner";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
@@ -70,9 +71,14 @@ export default function Setting() {
     const value = e.target.value;
     setSelectedValue(value);
   };
+  const handleSaveSettings = () => {
+    // Hiển thị thông báo khi ấn nút
+    toast.success("Settings saved successfully");
+  };
   return (
     <>
       <header>
+        <Toaster position="top-center" richColors />
         {navigation.state === "loading" && <div>Loading...</div>}
         <Navbar className="custom-navbar2">
           <NavbarBrand>
@@ -205,7 +211,9 @@ export default function Setting() {
                 value={selectedValue}
               />
               <input type="hidden" name="key" value={selectedValue} />
-              <Button type="submit">Save Settings</Button>
+              <Button onClick={handleSaveSettings} type="submit">
+                Save Settings
+              </Button>
             </fetcher.Form>
           </div>
         </div>
