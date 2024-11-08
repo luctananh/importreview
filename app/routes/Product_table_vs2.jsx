@@ -292,7 +292,7 @@ export default function ProductTable() {
                       to={`/DownloandCSV?productId=${product.id}`}
                       as={Link}
                     >
-                      Download Reviews
+                      Download reviews
                     </Button>
                   </div>
                 </td>
