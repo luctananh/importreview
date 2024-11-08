@@ -143,7 +143,7 @@ export default function Home() {
         <div className="navbar-left">
           {/* Logo ở bên trái */}
           <NavbarBrand>
-            <img src="./logo.png" alt="logo" height="70px" width="70px" />
+            <img className="logo_icon" src="./logo.png" alt="logo" />
           </NavbarBrand>
         </div>
 

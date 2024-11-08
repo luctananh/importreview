@@ -49,3 +49,7 @@
   border-left: 4px solid gray; /* Đường viền bên trái khi active */
   border-radius: 5px;
 }
+.logo_icon {
+  height: 50px;
+  width: 50px;
+}

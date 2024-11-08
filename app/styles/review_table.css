@@ -266,5 +266,6 @@ textarea {
   align-items: center;
 }
 .nava_product img {
+  height: 50px;
   width: 20px;
 }
