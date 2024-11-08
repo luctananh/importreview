@@ -3,7 +3,7 @@
   position: fixed;
 }
 .max-w-\[1024px\] {
-  max-width: 1300px; /* Thay đổi giá trị max-width theo ý muốn */
+  max-width: 100%; /* Thay đổi giá trị max-width theo ý muốn */
 }
 .side-nav {
   position: fixed;
