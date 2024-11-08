@@ -44,7 +44,7 @@ img {
 }
 .card_button {
   display: flex;
-  gap: 10px;
+  gap: 30px;
   justify-content: center;
   align-items: center;
 }
