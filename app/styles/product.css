@@ -127,6 +127,12 @@ header {
     cursor: pointer;
     width: 20%;
   }
+  .add_button p {
+    font-size: 8px;
+  }
+  .add_button img {
+    width: 10px;
+  }
   .table-container {
     padding: 5px;
   }
