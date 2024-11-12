@@ -125,6 +125,7 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 20%;
   }
   .table-container {
     padding: 5px;

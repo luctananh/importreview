@@ -239,7 +239,7 @@ export default function Home() {
             <Link className="add_button" to="/Insert/product">
               <Button color="default" radius="sm" variant="faded">
                 <img src="./plus.svg" alt="add_button" />
-                Add product
+                <p>Add product</p>
               </Button>
             </Link>
           </div>

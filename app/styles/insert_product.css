@@ -63,4 +63,7 @@ label {
   .button_prd button {
     font-size: 11px;
   }
+  .modal_container {
+    width: 100%;
+  }
 }

@@ -458,13 +458,9 @@ export default function ReviewTable() {
               <tbody>
                 {allReviews.length > 0 ? (
                   allReviews.slice(startIndex, endIndex).map((review) => (
-                    <tr key={review.id}>
+                    <tr key={review.id} onClick={() => onEditOpen2(review)}>
                       <td>
-                        <img
-                          onClick={() => onEditOpen2(review)}
-                          src={review.productImage}
-                          alt=""
-                        />
+                        <img src={review.productImage} alt="" />
                         {selectedReview && (
                           <Modal
                             size="4xl"
