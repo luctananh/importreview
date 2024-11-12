@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { useLoaderData, Form, useFetcher, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import { getSession } from "../server/auth.server";
 import "../styles/product.css";
-import { useEffect } from "react";
 import {
   Tooltip,
   Modal,
@@ -57,7 +56,14 @@ export default function ProductTable() {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading1, setIsLoading1] = useState(false);
-
+  const [isMobile, setIsMobile] = useState(false);
+  // mobile
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize(); // Thiết lập ban đầu khi component được mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   //add checkbox
   // const [selectedProducts, setSelectedProducts] = useState([]); // State to track selected products
   // const [selectAll, setSelectAll] = useState(false);
@@ -202,26 +208,44 @@ export default function ProductTable() {
               <th>Image</th>
               <th>Title</th>
               <th>Reviews</th>
-              <th>Import & Export</th>
+              <th className="import-export-mobile">Import & Export</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {filteredProducts.map((product) => (
-              <tr
-                key={product.id}
-                onClick={() =>
-                  (window.location.href = `/product_reviews/?pI=${
-                    product.id
-                  }&na=${encodeURIComponent(product.name)}`)
-                }
-              >
-                <td>
+              <tr>
+                <td
+                  key={product.id}
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                >
                   <img src={product.url} alt={product.name} />
                 </td>
-                <td>{product.name}</td>
-                <td>{product.reviewCount}</td>
-                <td>
+                <td
+                  key={product.id}
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                >
+                  {product.name}
+                </td>
+                <td
+                  key={product.id}
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                >
+                  {product.reviewCount}
+                </td>
+                <td className="none">
                   <div className="card_button">
                     <Button
                       variant="faded"
@@ -292,7 +316,7 @@ export default function ProductTable() {
                       to={`/DownloandCSV?productId=${product.id}`}
                       as={Link}
                     >
-                      Download reviews
+                      Download Reviews
                     </Button>
                   </div>
                 </td>
@@ -303,32 +327,84 @@ export default function ProductTable() {
                         <img src="./more.svg" alt="icon_more" />
                       </div>
                     </DropdownTrigger>
-                    <DropdownMenu aria-label="Static Actions">
-                      <DropdownItem
-                        onPress={() => {
-                          setSelectedProduct(product); // Cập nhật sản phẩm được chọn
-                          onOpen2(); // Mở modal
-                        }}
-                        key="delete"
-                        className="text-danger"
-                        color="danger"
-                      >
-                        Delete product
-                      </DropdownItem>
-                      {product.reviewCount > 0 && (
+                    {isMobile ? (
+                      <DropdownMenu aria-label="Static Actions">
+                        {/* Thêm Import reviews vào dropdown */}
                         <DropdownItem
                           onPress={() => {
                             setSelectedProduct(product);
-                            onOpen3();
+                            setProductURL("");
+                            onOpen1();
+                          }}
+                          key="import"
+                        >
+                          Import reviews
+                        </DropdownItem>
+                        {/* Thêm Download Reviews vào dropdown */}
+                        <DropdownItem
+                          as={Link}
+                          to={`/DownloandCSV?productId=${product.id}`}
+                          key="download"
+                        >
+                          Download Reviews
+                        </DropdownItem>
+
+                        {/* Tùy chọn xóa sản phẩm */}
+                        <DropdownItem
+                          onPress={() => {
+                            setSelectedProduct(product); // Cập nhật sản phẩm được chọn
+                            onOpen2(); // Mở modal xóa sản phẩm
                           }}
                           key="delete"
                           className="text-danger"
                           color="danger"
                         >
-                          Delete all reviews
+                          Delete product
                         </DropdownItem>
-                      )}
-                    </DropdownMenu>
+
+                        {/* Tùy chọn xóa tất cả đánh giá nếu sản phẩm có review */}
+                        {product.reviewCount > 0 && (
+                          <DropdownItem
+                            onPress={() => {
+                              setSelectedProduct(product);
+                              onOpen3();
+                            }}
+                            key="deleteAll"
+                            className="text-danger"
+                            color="danger"
+                          >
+                            Delete all reviews
+                          </DropdownItem>
+                        )}
+                      </DropdownMenu>
+                    ) : (
+                      <DropdownMenu aria-label="Static Actions">
+                        <DropdownItem
+                          onPress={() => {
+                            setSelectedProduct(product); // Cập nhật sản phẩm được chọn
+                            onOpen2(); // Mở modal
+                          }}
+                          key="delete"
+                          className="text-danger"
+                          color="danger"
+                        >
+                          Delete product
+                        </DropdownItem>
+                        {product.reviewCount > 0 && (
+                          <DropdownItem
+                            onPress={() => {
+                              setSelectedProduct(product);
+                              onOpen3();
+                            }}
+                            key="delete"
+                            className="text-danger"
+                            color="danger"
+                          >
+                            Delete all reviews
+                          </DropdownItem>
+                        )}
+                      </DropdownMenu>
+                    )}
                   </Dropdown>
                   <Modal
                     isOpen={isOpen2}

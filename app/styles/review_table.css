@@ -269,3 +269,35 @@ textarea {
   height: 50px;
   width: 20px;
 }
+.pagination-mobile {
+  display: none;
+}
+@media (max-width: 666px) {
+  .none {
+    display: none;
+  }
+  .pagination {
+    gap: 2px; /* Giảm khoảng cách giữa các nút khi ở mobile */
+  }
+
+  .pagination Button {
+    font-size: 12px; /* Giảm font-size hơn nữa trên mobile */
+    padding: 2px 4px; /* Giảm thêm padding trên mobile */
+  }
+
+  .ellipsis-button {
+    font-size: 12px;
+  }
+  .pagination {
+    display: none;
+  }
+  .pagination-mobile {
+    display: flex;
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+  }
+  .pagination-mobile Button {
+    font-size: 12px; /* Giảm font-size hơn nữa trên mobile */
+    padding: 2px 4px; /* Giảm thêm padding trên mobile */
+    margin: 5px;
+  }
+}

@@ -53,3 +53,14 @@ label {
 .button_uploand img {
   width: 20px;
 }
+@media (max-width: 666px) {
+  .card_title h1 {
+    font-size: 15px;
+  }
+  label {
+    font-size: 13px;
+  }
+  .button_prd button {
+    font-size: 11px;
+  }
+}

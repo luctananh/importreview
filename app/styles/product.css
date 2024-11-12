@@ -44,7 +44,7 @@ img {
 }
 .card_button {
   display: flex;
-  gap: 30px;
+  gap: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -77,7 +77,6 @@ img {
   display: flex;
   justify-content: flex-end;
   height: 20px;
-  cursor: pointer;
 }
 .more_svg img {
   height: 20px;
@@ -93,4 +92,57 @@ header {
 }
 .nava_product img {
   width: 20px;
+}
+/* Media query to hide the Import & Export options */
+@media (max-width: 666px) {
+  .card_button {
+    display: none; /* Hide Import & Export buttons */
+  }
+  .import-export-mobile {
+    display: none;
+  }
+  .dropdown-responsive {
+    display: inline-block; /* Show the dropdown */
+  }
+  .more_svg {
+    margin-right: -15px;
+    display: flex;
+    justify-content: flex-end;
+    height: 20px;
+  }
+  .more_svg img {
+    max-width: 50px;
+    margin-left: -40px;
+  }
+  .card_text2 {
+    display: block;
+    width: 20px;
+  }
+  .add_button button {
+    background-color: #aaafaa;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .table-container {
+    padding: 5px;
+  }
+
+  .search_card {
+    width: 100%; /* Cho input chiếm toàn bộ chiều rộng */
+  }
+
+  .search_card input {
+    width: 100%;
+    max-width: 100%; /* Đảm bảo input không bị tràn khỏi màn hình */
+    font-size: 14px; /* Giảm kích thước chữ cho mobile */
+  }
+  .none {
+    display: none;
+  }
+  .button_prd Button {
+    font-size: 8px;
+  }
 }

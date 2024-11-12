@@ -61,3 +61,14 @@ h1 {
 .custom-toast:hover {
   transform: scale(1.05); /* Phóng to khi hover */
 }
+@media (max-width: 666px) {
+  h1 {
+    font-size: 13px;
+  }
+  label {
+    font-size: 13px;
+  }
+  input::placeholder {
+    font-size: 13px;
+  }
+}
