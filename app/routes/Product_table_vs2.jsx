@@ -268,7 +268,14 @@ export default function ProductTable() {
                 >
                   {product.reviewCount}
                 </td>
-                <td className="none">
+                <td
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                  className="none"
+                >
                   <div className="card_button">
                     <Button
                       variant="faded"
