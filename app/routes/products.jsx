@@ -3,6 +3,8 @@ import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import { NavLink, useNavigation } from "react-router-dom";
+import { useEffect } from "react";
+import NProgress from "nprogress";
 import { useState } from "react";
 import "../styles/home.css";
 import "../styles/Navigation.css";
@@ -102,6 +104,13 @@ export default function Home() {
   const [searchParams] = useSearchParams();
   const navigation = useNavigation();
 
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
   const initialTab = searchParams.get("tab") || "Products";
   const [activeTab, setActiveTab] = useState(initialTab);
 
@@ -194,7 +203,7 @@ export default function Home() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/review_table" activeClassName="active">
+                <NavLink to="/ListReviews" activeClassName="active">
                   <div className="nava_product">
                     <img src="/review.svg" alt="review-icon" />
                     <p>Reviews</p>
@@ -222,7 +231,7 @@ export default function Home() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/review_table" activeClassName="active">
+                  <NavLink to="/ListReviews" activeClassName="active">
                     Reviews
                   </NavLink>
                 </li>

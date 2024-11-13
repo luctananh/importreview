@@ -4,6 +4,8 @@ import { authenticator } from "../server/auth.server.js";
 import { getSession } from "../server/auth.server.js";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { NavLink, useNavigation } from "react-router-dom";
+import { useEffect } from "react";
+import NProgress from "nprogress";
 import { json } from "@remix-run/node";
 import {
   Button,
@@ -56,6 +58,14 @@ export default function Setting() {
   const { user, maxReviewCount } = useLoaderData();
   const fetcher = useFetcher();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
@@ -79,7 +89,7 @@ export default function Setting() {
     <>
       <header>
         <Toaster position="top-center" richColors />
-        {navigation.state === "loading" && <div>Loading...</div>}
+
         <Navbar className="custom-navbar2">
           <NavbarBrand>
             <img className="logo_icon" src="./logo.png" alt="logo" />
@@ -145,7 +155,7 @@ export default function Setting() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/review_table" activeClassName="active">
+                <NavLink to="/ListReviews" activeClassName="active">
                   <div className="nava_product">
                     <img src="/review.svg" alt="review-icon" />
                     <p>Reviews</p>
@@ -173,7 +183,7 @@ export default function Setting() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/review_table" activeClassName="active">
+                  <NavLink to="/ListReviews" activeClassName="active">
                     Reviews
                   </NavLink>
                 </li>

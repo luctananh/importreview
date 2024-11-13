@@ -93,6 +93,7 @@ header {
 .nava_product img {
   width: 20px;
 }
+
 /* Media query to hide the Import & Export options */
 @media (max-width: 666px) {
   .card_button {

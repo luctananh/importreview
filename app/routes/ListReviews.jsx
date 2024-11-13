@@ -1,7 +1,7 @@
 import React from "react";
 import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
-import { prisma } from "../server/db.server";
+import { prisma } from "../server/db.server.js";
 import "../styles/review_table.css";
 import { getSession } from "../server/auth.server.js";
 import { Tooltip } from "@nextui-org/react";
@@ -9,9 +9,10 @@ import { DeleteIcon } from "../layouts/DeleteIcon.jsx";
 import { EditIcon } from "../layouts/EditIcon .jsx";
 import { authenticator } from "../server/auth.server.js";
 import { useFetcher } from "@remix-run/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigation } from "react-router-dom";
+import NProgress from "nprogress";
 import { useState, useEffect } from "react";
-import UploadWidget from "../layouts/uploadimage";
+import UploadWidget from "../layouts/uploadimage.jsx";
 import "../styles/home.css";
 import "../styles/Navigation.css";
 import "../styles/responsive.css";
@@ -303,6 +304,14 @@ export default function ReviewTable() {
       setErrorMessage(""); // Xóa thông báo lỗi nếu có
     }
   }
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
   return (
     <>
       <Toaster position="top-center" richColors />
@@ -372,7 +381,7 @@ export default function ReviewTable() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/review_table" activeClassName="active">
+                <NavLink to="/ListReviews" activeClassName="active">
                   <div className="nava_product">
                     <img src="/review.svg" alt="review-icon" />
                     <p>Reviews</p>
@@ -400,7 +409,7 @@ export default function ReviewTable() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/review_table" activeClassName="active">
+                  <NavLink to="/ListReviews" activeClassName="active">
                     Reviews
                   </NavLink>
                 </li>
@@ -803,7 +812,7 @@ export default function ReviewTable() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" className="no-reviews">
+                    <td colSpan="7" className="no-reviews">
                       No reviews available.
                     </td>
                   </tr>
