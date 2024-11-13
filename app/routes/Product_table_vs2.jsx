@@ -239,11 +239,35 @@ export default function ProductTable() {
           <tbody>
             {filteredProducts.map((product) => (
               <tr key={product.id} onClick={() => handleClick(product)}>
-                <td>
+                <td
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                >
                   <img src={product.url} alt={product.name} />
                 </td>
-                <td>{product.name}</td>
-                <td>{product.reviewCount}</td>
+                <td
+                  key={product.id}
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                >
+                  {product.name}
+                </td>
+                <td
+                  key={product.id}
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                >
+                  {product.reviewCount}
+                </td>
                 <td className="none">
                   <div className="card_button">
                     <Button
