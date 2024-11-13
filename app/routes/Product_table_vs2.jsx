@@ -5,7 +5,6 @@ import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import { getSession } from "../server/auth.server";
 import "../styles/product.css";
-import "../styles/Navigation.css";
 import {
   Tooltip,
   Modal,
@@ -239,8 +238,14 @@ export default function ProductTable() {
           </thead>
           <tbody>
             {filteredProducts.map((product) => (
-              <tr>
-                <td key={product.id} onClick={() => handleClick(product)}>
+              <tr key={product.id} onClick={() => handleClick(product)}>
+                <td
+                  onClick={() =>
+                    (window.location.href = `/product_reviews/?pI=${
+                      product.id
+                    }&na=${encodeURIComponent(product.name)}`)
+                  }
+                >
                   <img src={product.url} alt={product.name} />
                 </td>
                 <td
