@@ -5,6 +5,7 @@ import { json, redirect } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import { getSession } from "../server/auth.server";
 import "../styles/product.css";
+import "../styles/Navigation.css";
 import {
   Tooltip,
   Modal,
@@ -23,6 +24,9 @@ import {
 } from "@nextui-org/dropdown";
 import { Toaster, toast } from "sonner";
 import { Spinner } from "@nextui-org/spinner";
+import { useNavigation, useNavigate } from "react-router-dom";
+
+import NProgress from "nprogress";
 // Lấy danh sách sản phẩm từ cơ sở dữ liệu cho người dùng hiện tại
 export const loader = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -57,6 +61,27 @@ export default function ProductTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading1, setIsLoading1] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const navigation = useNavigation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
+  const handleClick = (product) => {
+    NProgress.start(); // Bắt đầu thanh loading
+    setTimeout(() => {
+      // Điều hướng đến trang review với query params
+      navigate(
+        `/product/reviews/?pI=${product.id}&na=${encodeURIComponent(
+          product.name
+        )}`
+      );
+      NProgress.done(); // Kết thúc thanh loading
+    }, 500); // Thời gian delay để thanh loading hiển thị
+  };
   // mobile
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -215,14 +240,7 @@ export default function ProductTable() {
           <tbody>
             {filteredProducts.map((product) => (
               <tr>
-                <td
-                  key={product.id}
-                  onClick={() =>
-                    (window.location.href = `/product_reviews/?pI=${
-                      product.id
-                    }&na=${encodeURIComponent(product.name)}`)
-                  }
-                >
+                <td key={product.id} onClick={() => handleClick(product)}>
                   <img src={product.url} alt={product.name} />
                 </td>
                 <td

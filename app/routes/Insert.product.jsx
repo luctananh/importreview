@@ -24,7 +24,9 @@ import {
 import { NavLink } from "react-router-dom";
 import "../styles/home.css";
 import "../styles/Navigation.css";
-
+import { useNavigation } from "react-router-dom";
+import NProgress from "nprogress";
+import { useEffect } from "react";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
@@ -39,7 +41,17 @@ export const action = async ({ request }) => {
   const name = formData.get("name");
   const description = formData.get("description");
   const url = formData.get("url");
-
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
+  const logout = () => {
+    fetcher.submit(null, { method: "post", action: "/auth/logout" });
+  };
   // Get user session
   const session = await getSession(request.headers.get("Cookie"));
   const userId = session.get("userId");
@@ -91,7 +103,13 @@ export default function ProductTable() {
     // No image validation needed here
     setLoading(false);
   }
-
+  const handleClick = () => {
+    NProgress.start(); // Bắt đầu thanh loading
+    setTimeout(() => {
+      navigate("/Insert/product"); // Điều hướng sau khi loading
+      NProgress.done(); // Kết thúc thanh loading
+    }, 500); // Thời gian delay để thanh loading hiển thị
+  };
   return (
     <>
       <Toaster position="top-center" richColors />
@@ -148,7 +166,7 @@ export default function ProductTable() {
           <div className="card_title">
             <Tooltip key="top-start" placement="top-start" content="Back">
               <Link href="/products">
-                <img src="/back.svg" alt="back icon" />
+                <img onClick={handleClick} src="/back.svg" alt="back icon" />
               </Link>
             </Tooltip>
             <h1>Add New Product</h1>

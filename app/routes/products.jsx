@@ -130,7 +130,13 @@ export default function Home() {
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
-
+  const handleClick = () => {
+    NProgress.start(); // Bắt đầu thanh loading
+    setTimeout(() => {
+      navigate("/Insert/product"); // Điều hướng sau khi loading
+      NProgress.done(); // Kết thúc thanh loading
+    }, 500); // Thời gian delay để thanh loading hiển thị
+  };
   return (
     <>
       <Navbar className="custom-navbar2">
@@ -246,7 +252,12 @@ export default function Home() {
           <div className="card_text2">
             <h1>Proructs</h1>
             <Link className="add_button" to="/Insert/product">
-              <Button color="default" radius="sm" variant="faded">
+              <Button
+                onClick={handleClick}
+                color="default"
+                radius="sm"
+                variant="faded"
+              >
                 <img src="./plus.svg" alt="add_button" />
                 <p>Add product</p>
               </Button>
