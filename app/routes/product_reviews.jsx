@@ -345,7 +345,7 @@ export default function ReviewTable() {
         </NavbarContent>
       </Navbar>
 
-      <div className="product_table">
+      <div className="review_product">
         <div className="card_text">
           <Tooltip key="top-start" placement="top-start" content="Back">
             <Link to="/products">

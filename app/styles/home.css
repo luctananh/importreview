@@ -46,6 +46,10 @@
   padding: 70px 10px;
   width: 80%;
 }
+.review_product {
+  flex-grow: 1; /* Allow this section to take up the remaining space */
+  padding: 70px 10px;
+}
 h1 {
   color: gray; /* Màu chữ */
   font-weight: bold; /* Làm chữ đậm */

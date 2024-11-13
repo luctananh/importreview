@@ -62,6 +62,15 @@ option:hover {
   height: 50px;
   width: 20px;
 }
+.setting_card span {
+  font-size: 16px; /* Kích thước chữ */
+  font-weight: bold; /* Đậm chữ */
+  color: #333; /* Màu chữ */
+  display: block; /* Đảm bảo dòng chữ chiếm hết chiều rộng */
+  margin-bottom: 10px; /* Khoảng cách dưới */
+  padding: 5px 0; /* Khoảng cách trong */
+  text-align: left; /* Căn trái chữ */
+}
 @media (max-width: 666px) {
   .setting_card span {
     font-size: 15px;
