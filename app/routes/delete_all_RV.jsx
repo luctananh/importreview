@@ -14,7 +14,7 @@ export const action = async ({ request }) => {
     await prisma.review.deleteMany({
       where: { productId: productId }, // Xóa tất cả review của sản phẩm theo productId
     });
-    return redirect("/review_table"); // Redirect đến trang bạn muốn sau khi xóa
+    return redirect("/ListReviews"); // Redirect đến trang bạn muốn sau khi xóa
   } catch (error) {
     console.error("Error deleting reviews:", error);
     return new Response("Error deleting reviews", { status: 500 });
