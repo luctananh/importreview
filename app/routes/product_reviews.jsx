@@ -39,7 +39,8 @@ import { Link, Form } from "@remix-run/react";
 import { Toaster, toast } from "sonner";
 import { tr } from "framer-motion/client";
 // Lấy tất cả review từ cơ sở dữ liệu
-
+import { useNavigation } from "react-router-dom";
+import NProgress from "nprogress";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
@@ -118,6 +119,14 @@ export default function ReviewTable() {
   const [errorMessage, setErrorMessage] = useState("");
   const [scrollBehavior, setScrollBehavior] = React.useState("inside");
   const fetcher = useFetcher();
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
   // Hàm để mở modal và lưu trữ reviewId
   const onOpen = (reviewId) => {
     setSelectedReviewId(reviewId);
