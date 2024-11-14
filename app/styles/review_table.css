@@ -1,6 +1,5 @@
 .table-review {
   width: 100%; /* Chiều rộng của container chiếm toàn bộ chiều rộng */
-  max-width: 1200px;
   margin: 0 auto; /* Căn giữa bảng */
   overflow-x: hidden; /* Ẩn thanh cuộn ngang */
   font-family: "Arial", sans-serif; /* Font chữ cho toàn bộ bảng */
