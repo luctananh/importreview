@@ -95,6 +95,9 @@ export default function ProductTable() {
     if (fetcher.state === "idle" && fetcher.data) {
       if (fetcher.data.success) {
         toast.success("Reviews imported successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } else {
         const errorDetails = fetcher.data.error || "No response";
         console.error("Error importing reviews: ", errorDetails);
