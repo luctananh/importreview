@@ -2,29 +2,33 @@ import { json } from "@remix-run/node";
 import { prisma } from "../server/db.server";
 import axios from "axios";
 import * as cheerio from "cheerio";
+import { v4 as uuidv4 } from "uuid";
 
-export async function action({ request, formData }) {
-  const formBody = new URLSearchParams(await request.text());
-  const link = formBody.get("productURL");
-  const actionType = formBody.get("_actionType");
-  const productId = formBody.get("productId");
-  console.log("Received _actionType:", actionType);
-  console.log("Received productURL:", link);
-  console.log("Received productID:", productId);
+const reviewQueue = [];
+let isProcessing = false;
 
-  if (!link || !productId) {
-    return json(
-      { error: "Please enter a product link and product ID!" },
-      { status: 400 }
-    );
-  }
-
+async function processQueue() {
+  if (isProcessing || reviewQueue.length === 0) return; //kiểm tra xem có đang xử lý yêu cầu nào không
+  isProcessing = true;
+  /* lấy yêu cầu đầu tiền trong hàng đợi */
+  const { request, formData, resolve, reject, jobId } = reviewQueue.shift();
   try {
+    const formBody = new URLSearchParams(await request.text());
+    const link = formBody.get("productURL");
+    const actionType = formBody.get("_actionType");
+    const productId = formBody.get("productId");
+    if (!link || !productId) {
+      console.log(`Job ${jobId} failed: Missing product link or product ID`);
+      resolve(
+        json(
+          { error: "Please enter a product link and product ID!" },
+          { status: 400 }
+        )
+      );
+      return;
+    }
     const setting = await prisma.setting.findFirst();
-    const maxReviewCount = setting ? setting.maxReviewCount : 20; // Nếu không có cài đặt, mặc định là 20
-
-    console.log("Max Review Count from setting:", maxReviewCount); // Kiểm tra giá trị maxReviewCount từ setting
-
+    const maxReviewCount = setting ? setting.maxReviewCount : 20;
     const parts = link.split("/");
     const lastSegment = parts.pop() || parts.pop();
     const aliProductId = lastSegment.split(".")[0];
@@ -35,10 +39,8 @@ export async function action({ request, formData }) {
 
     while (hasNextPage && allReviews.length < parseInt(maxReviewCount)) {
       const feedbackUrl = `https://feedback.aliexpress.com/display/productEvaluation.htm?v=2&productId=${aliProductId}&ownerMemberId=2668009148&companyId=2668009148&memberType=seller&startValidDate=&i18n=true&page=${page}`;
-
       const response = await axios.get(feedbackUrl);
       const $ = cheerio.load(response.data);
-
       const reviews = $(".feedback-item")
         .map((index, element) => {
           let reviewName =
@@ -54,11 +56,9 @@ export async function action({ request, formData }) {
             .find(".buyer-feedback span:nth-child(2)")
             .text();
           let reviewRating = $(element).find(".star-view span").attr("style");
-
           let reviewImage =
             $(element).find(".feedback-photo img").attr("src") ||
             $(element).find("img").attr("src");
-
           let reviewRatingValue;
           switch (reviewRating) {
             case "width:100%":
@@ -79,7 +79,6 @@ export async function action({ request, formData }) {
             default:
               reviewRatingValue = "5";
           }
-
           return {
             name: reviewName,
             country: reviewCountry,
@@ -90,10 +89,8 @@ export async function action({ request, formData }) {
           };
         })
         .get();
-
       for (let review of reviews) {
-        if (allReviews.length >= parseInt(maxReviewCount)) break; // Kiểm tra nếu đã đủ 30 đánh giá
-
+        if (allReviews.length >= parseInt(maxReviewCount)) break;
         await prisma.review.create({
           data: {
             userName: review.name,
@@ -106,26 +103,36 @@ export async function action({ request, formData }) {
           },
         });
       }
-
       allReviews = allReviews.concat(reviews);
-
-      if (allReviews.length >= parseInt(maxReviewCount)) break; // Dừng nếu đủ 30 đánh giá
-
+      if (allReviews.length >= parseInt(maxReviewCount)) break;
       const nextPageButton = $(
         ".ui-pagination-next:not(.ui-pagination-disabled)"
       );
       hasNextPage = nextPageButton.length > 0;
       page++;
-
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
-
-    return json({ success: "Reviews fetched successfully!" });
+    console.log(`Job ${jobId} succeeded: Reviews fetched successfully`);
+    resolve(json({ success: "Reviews fetched successfully!" }));
   } catch (error) {
-    console.error("Server Error:", error.message);
-    return json(
-      { error: "An error occurred while fetching reviews" },
-      { status: 500 }
+    console.error(`Job ${jobId} failed:`, error.message);
+    reject(
+      json(
+        { error: "An error occurred while fetching reviews" },
+        { status: 500 }
+      )
     );
+  } finally {
+    isProcessing = false;
+    processQueue();
   }
+}
+
+export async function action({ request, formData }) {
+  return new Promise((resolve, reject) => {
+    const jobId = uuidv4();
+    reviewQueue.push({ request, formData, resolve, reject, jobId });
+    console.log(`Job ${jobId} added to the queue`);
+    processQueue();
+  });
 }
