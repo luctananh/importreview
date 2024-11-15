@@ -27,6 +27,7 @@ import "../styles/Navigation.css";
 import { useNavigation } from "react-router-dom";
 import NProgress from "nprogress";
 import { useEffect } from "react";
+
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
@@ -41,17 +42,7 @@ export const action = async ({ request }) => {
   const name = formData.get("name");
   const description = formData.get("description");
   const url = formData.get("url");
-  const navigation = useNavigation();
-  useEffect(() => {
-    if (navigation.state === "loading") {
-      NProgress.start();
-    } else {
-      NProgress.done();
-    }
-  }, [navigation.state]);
-  const logout = () => {
-    fetcher.submit(null, { method: "post", action: "/auth/logout" });
-  };
+
   // Get user session
   const session = await getSession(request.headers.get("Cookie"));
   const userId = session.get("userId");
@@ -83,7 +74,14 @@ export default function ProductTable() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const fetcher = useFetcher();
-
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
@@ -103,6 +101,7 @@ export default function ProductTable() {
     // No image validation needed here
     setLoading(false);
   }
+
   const handleClick = () => {
     NProgress.start(); // Bắt đầu thanh loading
     setTimeout(() => {
