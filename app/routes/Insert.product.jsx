@@ -24,9 +24,6 @@ import {
 import { NavLink } from "react-router-dom";
 import "../styles/home.css";
 import "../styles/Navigation.css";
-import { useNavigation } from "react-router-dom";
-import NProgress from "nprogress";
-import { useEffect } from "react";
 
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
@@ -36,13 +33,11 @@ export const loader = async ({ request }) => {
   return json({ user });
 };
 
-// Handle adding a new product
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name");
   const description = formData.get("description");
   const url = formData.get("url");
-
   // Get user session
   const session = await getSession(request.headers.get("Cookie"));
   const userId = session.get("userId");
@@ -50,22 +45,22 @@ export const action = async ({ request }) => {
   if (!userId) {
     return json({ error: "Người dùng chưa đăng nhập" }, { status: 401 });
   }
-
   if (!name) {
     return json({ error: "Lỗi nhập dữ liệu" }, { status: 400 });
   }
-
-  // Create a new product and link it to the user
-  await prisma.product.create({
-    data: {
-      name,
-      description,
-      url: url || null, // Allow empty URL
-      userId,
-    },
-  });
-
-  return redirect("/products");
+  try {
+    await prisma.product.create({
+      data: {
+        name,
+        description,
+        url: url || null, // Allow empty URL
+        userId,
+      },
+    });
+    return redirect("/products");
+  } catch (error) {
+    return json({ error: "Failed to add product" }, { status: 500 });
+  }
 };
 
 export default function ProductTable() {
@@ -74,14 +69,7 @@ export default function ProductTable() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const fetcher = useFetcher();
-  const navigation = useNavigation();
-  useEffect(() => {
-    if (navigation.state === "loading") {
-      NProgress.start();
-    } else {
-      NProgress.done();
-    }
-  }, [navigation.state]);
+
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
@@ -97,25 +85,40 @@ export default function ProductTable() {
   }
 
   async function handleSubmit(event) {
+    event.preventDefault();
     setLoading(true);
-    // No image validation needed here
-    setLoading(false);
+
+    try {
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to add product");
+      }
+
+      toast.success("Add product successfully");
+      form.reset();
+      setImageUrl("");
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+    redirect("/products");
   }
 
-  const handleClick = () => {
-    NProgress.start(); // Bắt đầu thanh loading
-    setTimeout(() => {
-      navigate("/Insert/product"); // Điều hướng sau khi loading
-      NProgress.done(); // Kết thúc thanh loading
-    }, 500); // Thời gian delay để thanh loading hiển thị
-  };
   return (
     <>
       <Toaster position="top-center" richColors />
       <header>
         <Navbar className="custom-navbar2">
           <NavbarBrand>
-            <img src="/logo.png" alt="logo" height="70px" width="70px" />
+            <img src="./logo.png" alt="logo" height="70px" width="70px" />
           </NavbarBrand>
 
           <NavbarContent className="hidden sm:flex" justify="center">
@@ -165,7 +168,7 @@ export default function ProductTable() {
           <div className="card_title">
             <Tooltip key="top-start" placement="top-start" content="Back">
               <Link href="/products">
-                <img onClick={handleClick} src="/back.svg" alt="back icon" />
+                <img src="./back.svg" alt="back icon" />
               </Link>
             </Tooltip>
             <h1>Add New Product</h1>
@@ -208,13 +211,7 @@ export default function ProductTable() {
               </div>
             ) : (
               <div className="button_prd">
-                <Button
-                  type="submit"
-                  onClick={() => toast.success("Add product successfully")}
-                  size="xl"
-                  radius="sm"
-                  variant="flat"
-                >
+                <Button type="submit" size="xl" radius="sm" variant="flat">
                   Add Product
                 </Button>
               </div>

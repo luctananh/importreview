@@ -53,7 +53,7 @@ datasource db {
  model Setting {
   id            Int    @id @default(autoincrement())
   userId        String @unique
-  maxReviewCount Int
+  maxReviewCount Int  @default(20)
   key           Int
   user          User   @relation(fields: [userId], references: [id])
   @@index([userId])
