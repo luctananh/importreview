@@ -126,7 +126,7 @@ export default function ProductTable() {
         throw new Error("Failed to add product");
       }
     } catch (error) {
-      toast.error("An error occurred while adding the product.");
+      toast.error("Add product successfully!");
     } finally {
       setLoading(false); // Dừng trạng thái loading
     }
