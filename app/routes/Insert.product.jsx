@@ -24,6 +24,9 @@ import {
 import { NavLink } from "react-router-dom";
 import "../styles/home.css";
 import "../styles/Navigation.css";
+import { useNavigation } from "react-router-dom";
+import NProgress from "nprogress";
+import { useEffect } from "react";
 
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
@@ -33,11 +36,13 @@ export const loader = async ({ request }) => {
   return json({ user });
 };
 
+// Handle adding a new product
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name");
   const description = formData.get("description");
   const url = formData.get("url");
+
   // Get user session
   const session = await getSession(request.headers.get("Cookie"));
   const userId = session.get("userId");
@@ -45,22 +50,22 @@ export const action = async ({ request }) => {
   if (!userId) {
     return json({ error: "Người dùng chưa đăng nhập" }, { status: 401 });
   }
+
   if (!name) {
     return json({ error: "Lỗi nhập dữ liệu" }, { status: 400 });
   }
-  try {
-    await prisma.product.create({
-      data: {
-        name,
-        description,
-        url: url || null, // Allow empty URL
-        userId,
-      },
-    });
-    return redirect("/products");
-  } catch (error) {
-    return json({ error: "Failed to add product" }, { status: 500 });
-  }
+
+  // Create a new product and link it to the user
+  await prisma.product.create({
+    data: {
+      name,
+      description,
+      url: url || null, // Allow empty URL
+      userId,
+    },
+  });
+
+  return redirect("/products");
 };
 
 export default function ProductTable() {
@@ -69,7 +74,14 @@ export default function ProductTable() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const fetcher = useFetcher();
-
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
@@ -85,32 +97,22 @@ export default function ProductTable() {
   }
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    setLoading(true);
-
-    try {
-      const form = event.currentTarget;
-      const formData = new FormData(form);
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to add product");
-      }
-
+    if (!setLoading) {
+      setLoading(true);
       toast.success("Add product successfully");
-      form.reset();
-      setImageUrl("");
-    } catch (error) {
-      setErrorMessage(error.message);
-    } finally {
-      setLoading(false);
+    } else {
     }
+    setLoading(false);
+    // No image validation needed here
   }
 
+  const handleClick = () => {
+    NProgress.start(); // Bắt đầu thanh loading
+    setTimeout(() => {
+      navigate("/Insert/product"); // Điều hướng sau khi loading
+      NProgress.done(); // Kết thúc thanh loading
+    }, 500); // Thời gian delay để thanh loading hiển thị
+  };
   return (
     <>
       <Toaster position="top-center" richColors />
@@ -167,7 +169,7 @@ export default function ProductTable() {
           <div className="card_title">
             <Tooltip key="top-start" placement="top-start" content="Back">
               <Link href="/products">
-                <img src="/back.svg" alt="back icon" />
+                <img onClick={handleClick} src="/back.svg" alt="back icon" />
               </Link>
             </Tooltip>
             <h1>Add New Product</h1>

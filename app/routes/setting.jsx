@@ -1,8 +1,11 @@
 import { Select, SelectItem } from "@nextui-org/react";
+// import { Reviews } from "../server/data.js";
 import { authenticator } from "../server/auth.server.js";
 import { getSession } from "../server/auth.server.js";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { NavLink, useNavigation } from "react-router-dom";
+import { useEffect } from "react";
+import NProgress from "nprogress";
 import { json } from "@remix-run/node";
 import {
   Button,
@@ -23,7 +26,7 @@ import "../styles/Navigation.css";
 import "../styles/responsive.css";
 import { prisma } from "../server/db.server";
 import { useState } from "react";
-
+import { Toaster, toast } from "sonner";
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
@@ -38,22 +41,31 @@ export const loader = async ({ request }) => {
 
   let setting;
   try {
+    // Lấy cài đặt của người dùng từ database
     setting = await prisma.setting.findUnique({
       where: { userId },
     });
   } catch (error) {
     console.error("Error fetching setting:", error);
-    setting = null;
+    setting = null; // Nếu có lỗi, gán setting là null
   }
 
+  // Đặt giá trị mặc định nếu không có cài đặt
   const maxReviewCount = setting?.maxReviewCount || 20;
   return json({ user, maxReviewCount });
 };
-
 export default function Setting() {
   const { user, maxReviewCount } = useLoaderData();
   const fetcher = useFetcher();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
   const logout = () => {
     fetcher.submit(null, { method: "post", action: "/auth/logout" });
   };
@@ -69,10 +81,15 @@ export default function Setting() {
     const value = e.target.value;
     setSelectedValue(value);
   };
+  const handleSaveSettings = () => {
+    // Hiển thị thông báo khi ấn nút
+    toast.success("Settings saved successfully");
+  };
   return (
     <>
       <header>
-        {navigation.state === "loading" && <div>Loading...</div>}
+        <Toaster position="top-center" richColors />
+
         <Navbar className="custom-navbar2">
           <NavbarBrand>
             <img className="logo_icon" src="./logo.png" alt="logo" />
@@ -138,7 +155,7 @@ export default function Setting() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/review_table" activeClassName="active">
+                <NavLink to="/ListReviews" activeClassName="active">
                   <div className="nava_product">
                     <img src="/review.svg" alt="review-icon" />
                     <p>Reviews</p>
@@ -166,7 +183,7 @@ export default function Setting() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/review_table" activeClassName="active">
+                  <NavLink to="/ListReviews" activeClassName="active">
                     Reviews
                   </NavLink>
                 </li>
@@ -195,6 +212,7 @@ export default function Setting() {
               ))}
             </select>
           </div>
+          {/* Form của Remix với input ẩn */}
           <div className="save_setting">
             <fetcher.Form method="post" action="/settingapi">
               <input
@@ -203,7 +221,9 @@ export default function Setting() {
                 value={selectedValue}
               />
               <input type="hidden" name="key" value={selectedValue} />
-              <Button type="submit">Save Settings</Button>
+              <Button onClick={handleSaveSettings} type="submit">
+                Save Settings
+              </Button>
             </fetcher.Form>
           </div>
         </div>

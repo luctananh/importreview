@@ -110,9 +110,7 @@ async function processQueue() {
       );
       hasNextPage = nextPageButton.length > 0;
       page++;
-      await new Promise((resolve) =>
-        setTimeout(resolve, Math.random() * 2000 + 1000)
-      );
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
     console.log(`Job ${jobId} succeeded: Reviews fetched successfully`);
     resolve(json({ success: "Reviews fetched successfully!" }));
