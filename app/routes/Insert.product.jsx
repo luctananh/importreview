@@ -118,7 +118,7 @@ export default function ProductTable() {
       <header>
         <Navbar className="custom-navbar2">
           <NavbarBrand>
-            <img src="./logo.png" alt="logo" height="70px" width="70px" />
+            <img src="/logo.png" alt="logo" height="70px" width="70px" />
           </NavbarBrand>
 
           <NavbarContent className="hidden sm:flex" justify="center">
@@ -168,7 +168,7 @@ export default function ProductTable() {
           <div className="card_title">
             <Tooltip key="top-start" placement="top-start" content="Back">
               <Link href="/products">
-                <img src="./back.svg" alt="back icon" />
+                <img src="/back.svg" alt="back icon" />
               </Link>
             </Tooltip>
             <h1>Add New Product</h1>
