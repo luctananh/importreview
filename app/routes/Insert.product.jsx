@@ -108,8 +108,8 @@ export default function ProductTable() {
       setErrorMessage(error.message);
     } finally {
       setLoading(false);
+      redirect("/products");
     }
-    redirect("/products");
   }
 
   return (
