@@ -96,15 +96,41 @@ export default function ProductTable() {
     }
   }
 
-  async function handleSubmit(event) {
-    if (!setLoading) {
-      setLoading(true);
-      toast.success("Add product successfully");
-    } else {
+  const handleSubmit = async (event) => {
+    // Lấy dữ liệu từ form
+    const formData = new FormData(event.target);
+    const name = formData.get("name");
+    const description = formData.get("description");
+
+    // Kiểm tra xem các trường có được điền đầy đủ không
+    if (!name || !description) {
+      toast.error("Please fill out all fields before submitting!");
+      return;
     }
-    setLoading(false);
-    // No image validation needed here
-  }
+
+    setLoading(true); // Bắt đầu trạng thái loading
+
+    try {
+      // Gọi API thêm sản phẩm hoặc logic xử lý
+      const response = await someApiCall({
+        name,
+        description,
+        url,
+      });
+
+      if (response.ok) {
+        toast.success("Add product successfully!");
+        setImageUrl(""); // Reset image URL
+        event.target.reset(); // Reset form
+      } else {
+        throw new Error("Failed to add product");
+      }
+    } catch (error) {
+      toast.error("An error occurred while adding the product.");
+    } finally {
+      setLoading(false); // Dừng trạng thái loading
+    }
+  };
 
   const handleClick = () => {
     NProgress.start(); // Bắt đầu thanh loading
