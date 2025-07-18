@@ -4,7 +4,7 @@ export const loader = ({ request }) => {
   const url = new URL(request.url);
   const prompt = url.searchParams.get("prompt");
   return authenticator.authenticate("auth0", request, {
-    successRedirect: "https://importify.io/products",
+    successRedirect: "https://importreview.vercel.app/products",
     failureRedirect: "/",
     authParams: {
       prompt: prompt || "login",
@@ -14,8 +14,8 @@ export const loader = ({ request }) => {
 
 export const action = ({ request }) => {
   return authenticator.authenticate("auth0", request, {
-    successRedirect: "https://importify.io/products",
-    failureRedirect: "https://importify.io/loi",
+    successRedirect: "https://importreview.vercel.app/products",
+    failureRedirect: "https://importreview.vercel.app/loi",
   });
 };
 

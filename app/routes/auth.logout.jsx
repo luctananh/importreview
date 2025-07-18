@@ -2,12 +2,12 @@ import { redirect } from "@remix-run/node";
 import { authenticator } from "../server/auth.server.js";
 
 export const action = async ({ request }) => {
-  const auth0Domain = "dev-c841kfnfmsjcrhcr.us.auth0.com";
-  const clientId = "UpT0esnQTQjHDg2wBr4MMBQexfZvsFs2";
-  const returnTo = "http://importify.io/";
+  const auth0Domain = "dev-qoakuhj30oocsvf4.us.auth0.com";
+  const clientId = "zirqgvWtSPptB2eAZx2LHKsKc76i2jnV";
+  const returnTo = "http://importreview.vercel.app/";
 
   await authenticator.logout(request, {
-    redirectTo: "http://importify.io/",
+    redirectTo: "http://importreview.vercel.app/",
   });
 
   return redirect(

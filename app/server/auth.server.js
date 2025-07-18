@@ -19,7 +19,7 @@ export const { getSession, commitSession, destroySession } = sessionStorage;
 // Tạo authenticator
 export const authenticator = new Authenticator(sessionStorage);
 
-// Cấu hình Auth0 strategy https://importify.io/auth/auth0/callback
+// Cấu hình Auth0 strategy https://importreview.vercel.app/auth/auth0/callback
 const auth0Strategy = new Auth0Strategy(
   {
     callbackURL: process.env.AUTH0_CALLBACK_URL,
